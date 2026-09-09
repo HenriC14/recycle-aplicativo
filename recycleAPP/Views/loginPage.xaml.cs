@@ -5,9 +5,7 @@ namespace recycleAPP.Views;
 public partial class LoginPage : ContentPage
 {
     private readonly IAuthService _authService;
- 
-    // O IAuthService e injetado automaticamente pelo MAUI (registrado em MauiProgram.cs).
-    // A pagina nao sabe se e o mock ou uma API real -- so usa o contrato.
+
     public LoginPage(IAuthService authService)
     {
         InitializeComponent();
@@ -17,7 +15,7 @@ public partial class LoginPage : ContentPage
     private async void OnEntrarClicked(object sender, EventArgs e)
     {
         ErrorLabel.IsVisible = false;
- 
+
         var username = UsernameEntry.Text?.Trim();
         var password = PasswordEntry.Text;
  

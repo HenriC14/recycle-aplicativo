@@ -1,5 +1,9 @@
 namespace recycleAPP.Services;
 
+public interface IAuthService
+{
+    Task<MockUser?> TryLoginAsync(string username, string senha);
+}
 public enum TipoUsuario
 {
     Reciclador,
@@ -19,7 +23,7 @@ public class MockUser
 /// Simula autenticacao e dados de usuario enquanto nao existe backend/API.
 /// Substituir por chamadas HTTP reais quando a API estiver pronta.
 /// </summary>
-public static class MockUserService
+public class MockUserService : IAuthService
 {
     private static readonly List<MockUser> Usuarios = new()
     {
@@ -28,10 +32,12 @@ public static class MockUserService
         new MockUser { Nome = "EcoParceira LTDA", Username = "ecoparceira", Senha = "123456", Tipo = TipoUsuario.EmpresaParceira },
     };
 
-    public static MockUser? TryLogin(string username, string senha)
+    public Task<MockUser?> TryLoginAsync(string username, string senha)
     {
-        return Usuarios.FirstOrDefault(u =>
+        var user = Usuarios.FirstOrDefault(u =>
             u.Username.Equals(username, StringComparison.OrdinalIgnoreCase) &&
             u.Senha == senha);
+
+        return Task.FromResult(user);
     }
 }

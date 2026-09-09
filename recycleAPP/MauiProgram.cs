@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using recycleAPP.Services;
 
 namespace recycleAPP
 {
@@ -15,8 +16,11 @@ namespace recycleAPP
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<IAuthService, MockUserService>();
+            builder.Services.AddTransient<recycleAPP.Views.LoginPage>();
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
