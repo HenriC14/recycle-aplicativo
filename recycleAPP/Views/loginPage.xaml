@@ -1,12 +1,112 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="recycleAPP.Views.loginPage"
-             Title="loginPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Class="recycleAPP.Views.LoginPage"
+             BackgroundColor="#8FE3A6"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="*,Auto,*" Padding="24">
+
+        <!-- Logo -->
+        <Image Grid.Row="0"
+               Source="recycle-logo.png"
+               HeightRequest="80"
+               WidthRequest="200"
+               Aspect="AspectFit"
+               VerticalOptions="End"
+               HorizontalOptions="Center"
+               Margin="0,0,0,24" />
+
+        <!-- Card de login -->
+        <Border Grid.Row="1"
+                StrokeShape="RoundRectangle 20"
+                BackgroundColor="White"
+                Stroke="Transparent"
+                Padding="24,32">
+
+            <VerticalStackLayout Spacing="16">
+
+                <Label Text="Bem-vindo ao Recycle"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center" />
+
+                <!-- Nome de usuário -->
+                <Border StrokeShape="RoundRectangle 24"
+                        BackgroundColor="#C9F4D4"
+                        Stroke="Transparent"
+                        Padding="16,4"
+                        Margin="0,16,0,0">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Label Grid.Column="0" Text="&#128100;" VerticalOptions="Center" FontSize="16" />
+                        <Entry Grid.Column="1"
+                               x:Name="UsernameEntry"
+                               Placeholder="Nome de usuario"
+                               BackgroundColor="Transparent"
+                               PlaceholderColor="#2E2E2E" />
+                    </Grid>
+                </Border>
+
+                <!-- Senha -->
+                <Border StrokeShape="RoundRectangle 24"
+                        BackgroundColor="#C9F4D4"
+                        Stroke="Transparent"
+                        Padding="16,4">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Label Grid.Column="0" Text="&#128273;" VerticalOptions="Center" FontSize="16" />
+                        <Entry Grid.Column="1"
+                               x:Name="PasswordEntry"
+                               Placeholder="Senha"
+                               IsPassword="True"
+                               BackgroundColor="Transparent"
+                               PlaceholderColor="#2E2E2E" />
+                    </Grid>
+                </Border>
+
+                <!-- Mensagem de erro (oculta por padrão) -->
+                <Label x:Name="ErrorLabel"
+                       TextColor="#D3302F"
+                       FontSize="13"
+                       HorizontalOptions="Center"
+                       IsVisible="False" />
+
+                <!-- Botão Entrar -->
+                <Button Text="Entrar"
+                        x:Name="EntrarButton"
+                        Clicked="OnEntrarClicked"
+                        BackgroundColor="#3FBF63"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="24"
+                        HeightRequest="48"
+                        Margin="0,8,0,0" />
+
+                <!-- Esqueci minha senha -->
+                <Label Text="Esqueci minha senha"
+                       FontSize="13"
+                       HorizontalOptions="Center"
+                       Margin="0,4,0,0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnForgotPasswordTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <!-- Link cadastro -->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
+                    <Label Text="Nao tem uma conta?" FontSize="13" />
+                    <Label Text="Crie uma agora!"
+                           FontSize="13"
+                           TextColor="#1E90FF"
+                           FontAttributes="Bold">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCreateAccountTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </Border>
+
+    </Grid>
 </ContentPage>
