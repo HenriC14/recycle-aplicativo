@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="recycleAPP.Views.WelcomePage"
+             BackgroundColor="#8FE3A6"
+             Shell.NavBarIsVisible="False">
+
+    <VerticalStackLayout VerticalOptions="Center"
+                          HorizontalOptions="Center"
+                          Spacing="16"
+                          Padding="24">
+
+        <Label Text="Login funcionando!"
+               FontSize="26"
+               FontAttributes="Bold"
+               TextColor="#1F8A3B"
+               HorizontalOptions="Center" />
+
+        <Label x:Name="NomeLabel"
+               FontSize="20"
+               HorizontalOptions="Center" />
+
+        <Label x:Name="TipoLabel"
+               FontSize="16"
+               TextColor="#2E2E2E"
+               HorizontalOptions="Center" />
+
+        <Button Text="Sair (logout)"
+                Clicked="OnLogoutClicked"
+                BackgroundColor="#3FBF63"
+                TextColor="White"
+                CornerRadius="24"
+                Margin="0,24,0,0" />
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -11,46 +11,42 @@ public partial class LoginPage : ContentPage
         InitializeComponent();
         _authService = authService;
     }
- 
+
     private async void OnEntrarClicked(object sender, EventArgs e)
     {
         ErrorLabel.IsVisible = false;
 
         var username = UsernameEntry.Text?.Trim();
         var password = PasswordEntry.Text;
- 
+
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
         {
             ShowError("Preencha usuario e senha.");
             return;
         }
- 
+
         var loggedUser = await _authService.TryLoginAsync(username, password);
- 
+
         if (loggedUser is null)
         {
             ShowError("Usuario ou senha invalidos.");
             return;
         }
- 
-        // Quando as proximas telas existirem, troque por:
-        // await Shell.Current.GoToAsync(nameof(PerfilColetorPage));
-        await DisplayAlert("Recycle", $"Bem-vindo, {loggedUser.Nome}!", "OK");
+
+        CurrentSession.UsuarioLogado = loggedUser;
+        await Shell.Current.GoToAsync(nameof(WelcomePage));
     }
- 
+
     private async void OnForgotPasswordTapped(object sender, EventArgs e)
     {
-        // TODO: implementar fluxo real de recuperacao de senha (caso de uso "Recuperar senha")
         await DisplayAlert("Recuperar senha", "Funcionalidade ainda nao implementada.", "OK");
     }
- 
+
     private async void OnCreateAccountTapped(object sender, EventArgs e)
     {
-        // TODO: trocar pelo nome real da rota/pagina de cadastro quando ela existir
-        // await Shell.Current.GoToAsync(nameof(CadastroPage));
-        await DisplayAlert("Cadastro", "Tela de cadastro ainda sera conectada aqui.", "OK");
+        await Shell.Current.GoToAsync(nameof(CadastroPage));
     }
- 
+
     private void ShowError(string message)
     {
         ErrorLabel.Text = message;

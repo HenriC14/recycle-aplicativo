@@ -8,11 +8,11 @@
     <Grid RowDefinitions="*,Auto,*" Padding="24">
 
         <!-- Logo -->
-        <Image Grid.Row="0"
-               Source="recycle-logo.png"
-               HeightRequest="80"
-               WidthRequest="200"
-               Aspect="AspectFit"
+           <Label Grid.Row="0"
+               Text="ReCycle"
+               FontSize="30"
+               FontAttributes="Bold"
+               TextColor="#1F8A3B"
                VerticalOptions="End"
                HorizontalOptions="Center"
                Margin="0,0,0,24" />

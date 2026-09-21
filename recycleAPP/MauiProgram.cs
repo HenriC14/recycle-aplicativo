@@ -17,7 +17,9 @@ namespace recycleAPP
                 });
 
             builder.Services.AddSingleton<IAuthService, MockUserService>();
+            builder.Services.AddTransient<recycleAPP.Views.CadastroPage>();
             builder.Services.AddTransient<recycleAPP.Views.LoginPage>();
+            builder.Services.AddTransient<recycleAPP.Views.WelcomePage>();
 
 #if DEBUG
             builder.Logging.AddDebug();
