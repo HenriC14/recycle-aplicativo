@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="recycleAPP.Views.CadastroColetorPage"
+             BackgroundColor="#8FE3A6"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <Grid RowDefinitions="120,Auto" Padding="24" RowSpacing="0">
+
+            <Label Grid.Row="0"
+                   Text="ReCycle"
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   TextColor="#1F8A3B"
+                   VerticalOptions="End"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,24" />
+
+            <Border Grid.Row="1"
+                    StrokeShape="RoundRectangle 20"
+                    BackgroundColor="White"
+                    Stroke="Transparent"
+                    Padding="24,32">
+
+                <VerticalStackLayout Spacing="12">
+
+                    <Label Text="Bem-vindo ao Recycle"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center" />
+
+                    <Border StrokeShape="RoundRectangle 24"
+                            BackgroundColor="#C9F4D4"
+                            Stroke="Transparent"
+                            Padding="16,4"
+                            Margin="0,16,0,0">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                            <Label Grid.Column="0" Text="&#128100;" VerticalOptions="Center" FontSize="16" />
+                            <Entry Grid.Column="1"
+                                   x:Name="UsernameEntry"
+                                   Placeholder="Nome de usuario"
+                                   BackgroundColor="Transparent"
+                                   PlaceholderColor="#2E2E2E" />
+                        </Grid>
+                    </Border>
+
+                    <Border StrokeShape="RoundRectangle 24"
+                            BackgroundColor="#C9F4D4"
+                            Stroke="Transparent"
+                            Padding="16,4">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                            <Label Grid.Column="0" Text="&#128100;" VerticalOptions="Center" FontSize="16" />
+                            <Entry Grid.Column="1"
+                                   x:Name="CpfEntry"
+                                   Placeholder="CPF"
+                                   Keyboard="Numeric"
+                                   MaxLength="11"
+                                   BackgroundColor="Transparent"
+                                   PlaceholderColor="#2E2E2E" />
+                        </Grid>
+                    </Border>
+
+                    <Border StrokeShape="RoundRectangle 24"
+                            BackgroundColor="#C9F4D4"
+                            Stroke="Transparent"
+                            Padding="16,4">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                            <Label Grid.Column="0" Text="&#127970;" VerticalOptions="Center" FontSize="16" />
+                            <Entry Grid.Column="1"
+                                   x:Name="CnpjEntry"
+                                   Placeholder="CNPJ da empresa"
+                                   Keyboard="Numeric"
+                                   MaxLength="14"
+                                   BackgroundColor="Transparent"
+                                   PlaceholderColor="#2E2E2E" />
+                        </Grid>
+                    </Border>
+
+                    <Border StrokeShape="RoundRectangle 24"
+                            BackgroundColor="#C9F4D4"
+                            Stroke="Transparent"
+                            Padding="16,4">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                            <Label Grid.Column="0" Text="&#9993;" VerticalOptions="Center" FontSize="16" />
+                            <Entry Grid.Column="1"
+                                   x:Name="EmailEntry"
+                                   Placeholder="E-mail"
+                                   Keyboard="Email"
+                                   BackgroundColor="Transparent"
+                                   PlaceholderColor="#2E2E2E" />
+                        </Grid>
+                    </Border>
+
+                    <Border StrokeShape="RoundRectangle 24"
+                            BackgroundColor="#C9F4D4"
+                            Stroke="Transparent"
+                            Padding="16,4">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                            <Label Grid.Column="0" Text="&#128273;" VerticalOptions="Center" FontSize="16" />
+                            <Entry Grid.Column="1"
+                                   x:Name="SenhaEntry"
+                                   Placeholder="Senha"
+                                   IsPassword="True"
+                                   BackgroundColor="Transparent"
+                                   PlaceholderColor="#2E2E2E" />
+                        </Grid>
+                    </Border>
+
+                    <Border StrokeShape="RoundRectangle 24"
+                            BackgroundColor="#C9F4D4"
+                            Stroke="Transparent"
+                            Padding="16,4">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                            <Label Grid.Column="0" Text="&#128273;" VerticalOptions="Center" FontSize="16" />
+                            <Entry Grid.Column="1"
+                                   x:Name="ConfirmarSenhaEntry"
+                                   Placeholder="Confirmar a senha"
+                                   IsPassword="True"
+                                   BackgroundColor="Transparent"
+                                   PlaceholderColor="#2E2E2E" />
+                        </Grid>
+                    </Border>
+
+                    <Label x:Name="ErrorLabel"
+                           TextColor="#D3302F"
+                           FontSize="13"
+                           HorizontalOptions="Center"
+                           IsVisible="False" />
+
+                    <Button Text="Cadastrar"
+                            Clicked="OnCadastrarClicked"
+                            BackgroundColor="#3FBF63"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            CornerRadius="24"
+                            HeightRequest="48"
+                            Margin="0,8,0,0" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="4" Margin="0,4,0,0">
+                        <Label Text="Ja tem uma conta?" FontSize="13" />
+                        <Label Text="Entrar"
+                               FontSize="13"
+                               TextColor="#1E90FF"
+                               FontAttributes="Bold">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnVoltarLoginTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

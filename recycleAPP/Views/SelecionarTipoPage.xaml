@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="recycleAPP.Views.SelecionarTipoPage"
+             BackgroundColor="#8FE3A6"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="120,Auto" Padding="24" RowSpacing="0">
+
+        <Label Grid.Row="0"
+               Text="ReCycle"
+               FontSize="30"
+               FontAttributes="Bold"
+               TextColor="#1F8A3B"
+               VerticalOptions="End"
+               HorizontalOptions="Center"
+               Margin="0,0,0,24" />
+
+        <Border Grid.Row="1"
+                StrokeShape="RoundRectangle 20"
+                BackgroundColor="White"
+                Stroke="Transparent"
+                Padding="24,32">
+
+            <VerticalStackLayout Spacing="16">
+
+                <Border StrokeShape="RoundRectangle 16"
+                        BackgroundColor="#6FD98C"
+                        Stroke="Transparent"
+                        Padding="20,16">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Vamos começar"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="Black"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+                        <Label Text="Voce é um reciclador ou trabalha para o ponto de coleta?"
+                               FontSize="14"
+                               TextColor="Black"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 24"
+                        BackgroundColor="#C9F4D4"
+                        Stroke="Transparent"
+                        Padding="16,4"
+                        Margin="0,8,0,0">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Label Grid.Column="0" Text="&#128100;" VerticalOptions="Center" FontSize="18" />
+                        <Label Grid.Column="1"
+                               Text="Reciclador"
+                               FontSize="16"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnRecicladorTapped" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 24"
+                        BackgroundColor="#C9F4D4"
+                        Stroke="Transparent"
+                        Padding="16,4">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Label Grid.Column="0" Text="&#127970;" VerticalOptions="Center" FontSize="18" />
+                        <Label Grid.Column="1"
+                               Text="Empresa"
+                               FontSize="16"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnEmpresaTapped" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+            </VerticalStackLayout>
+        </Border>
+
+    </Grid>
+</ContentPage>

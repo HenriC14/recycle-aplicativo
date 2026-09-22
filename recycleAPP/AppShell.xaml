@@ -6,7 +6,7 @@
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate views:LoginPage}"
+        ContentTemplate="{DataTemplate views:SelecionarTipoPage}"
         Route="loginPage" />
 
 </Shell>
