@@ -34,7 +34,7 @@ public partial class LoginPage : ContentPage
         }
 
         CurrentSession.UsuarioLogado = loggedUser;
-        await Shell.Current.GoToAsync(nameof(WelcomePage));
+        await Shell.Current.GoToAsync(nameof(PerfilRecicladorPage));
     }
 
     private async void OnForgotPasswordTapped(object sender, EventArgs e)

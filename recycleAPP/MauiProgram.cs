@@ -23,6 +23,9 @@ namespace recycleAPP
             builder.Services.AddTransient<recycleAPP.Views.SelecionarTipoPage>();
             builder.Services.AddTransient<recycleAPP.Views.LoginColetorPage>();
             builder.Services.AddTransient<recycleAPP.Views.CadastroColetorPage>();
+            builder.Services.AddTransient<recycleAPP.Views.PerfilColetorPage>();
+            builder.Services.AddTransient<recycleAPP.Views.PerfilRecicladorPage>();
+            builder.Services.AddTransient<recycleAPP.Views.LojaPontosPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

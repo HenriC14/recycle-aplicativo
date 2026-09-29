@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:recycleAPP.Models"
+             x:Class="recycleAPP.Views.LojaPontosPage"
+             BackgroundColor="#EAFBEF"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*" Padding="20,20,20,0">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="10" Margin="0,0,0,12">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Border Grid.Column="0"
+                        StrokeShape="RoundRectangle 25"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        BackgroundColor="#C9F4D4"
+                        Stroke="Transparent">
+                    <Label Text="&#128100;"
+                           FontSize="22"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Border>
+
+                <Label Grid.Column="1"
+                       Text="Loja de pontos"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       Margin="12,0,0,0" />
+
+                <Label Grid.Column="2"
+                       Text="&#9881;"
+                       FontSize="20"
+                       VerticalOptions="Center" />
+            </Grid>
+
+            <Label x:Name="PontosLabel"
+                   FontSize="16"
+                   Margin="62,0,0,0" />
+
+            <Button Text="Voltar"
+                    Clicked="OnVoltarClicked"
+                    BackgroundColor="#C9F4D4"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    CornerRadius="20"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    WidthRequest="120" />
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1">
+            <CollectionView x:Name="ProdutosCollectionView"
+                             Margin="0,0,0,20">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="12" HorizontalItemSpacing="12" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ProdutoLoja">
+                        <Border StrokeShape="RoundRectangle 14"
+                                Stroke="#3FBF63"
+                                StrokeThickness="1"
+                                BackgroundColor="White"
+                                Padding="10">
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="{Binding Emoji}"
+                                       FontSize="34"
+                                       HorizontalOptions="Center" />
+                                <Label Text="{Binding Nome}"
+                                       FontSize="12"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="2"
+                                       HorizontalTextAlignment="Center" />
+                                <Label Text="{Binding CustoPontosTexto}"
+                                       FontSize="12"
+                                       FontAttributes="Bold"
+                                       TextColor="#1F8A3B"
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

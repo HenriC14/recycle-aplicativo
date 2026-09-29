@@ -7,6 +7,13 @@ public enum TipoUsuario
     EmpresaParceira
 }
 
+public class MaterialPercentual
+{
+    public string Nome { get; set; } = string.Empty;
+    public double Percentual { get; set; }
+    public double PesoKg { get; set; }
+}
+
 public class MockUser
 {
     public string Nome { get; set; } = string.Empty;
@@ -16,6 +23,21 @@ public class MockUser
     public string Email { get; set; } = string.Empty;
     public string Senha { get; set; } = string.Empty;
     public TipoUsuario Tipo { get; set; }
+
+    // Campos especificos do perfil do Coletor (mock, ate ter backend de verdade)
+    public string Endereco { get; set; } = string.Empty;
+    public int Seguidores { get; set; }
+    public int Seguindo { get; set; }
+    public double QuilosReciclados { get; set; }
+    public string MaterialMaisReciclado { get; set; } = string.Empty;
+    public double MaterialMaisRecicladoPercentual { get; set; }
+    public double UltimaAtividadePesoKg { get; set; }
+    public string UltimaAtividadeMaterial { get; set; } = string.Empty;
+    public double UltimaAtividadeKm { get; set; }
+    public string UltimaAtividadeQuando { get; set; } = string.Empty;
+    public int SaldoPontos { get; set; }
+    public List<MaterialPercentual> Composicao { get; set; } = new();
+
 }
 
 /// <summary>
@@ -28,8 +50,62 @@ public class MockUserService : IAuthService
 {
     private static readonly List<MockUser> Usuarios = new()
     {
-        new MockUser { Nome = "Ferro Velho Conceicao", Username = "ferrovelho", Cpf = "00000000000", Cnpj = "11222333000181", Email = "ferrovelho@teste.com", Senha = "123456", Tipo = TipoUsuario.Coletor },
-        new MockUser { Nome = "Maria Reciclagem", Username = "maria", Cpf = "11111111111", Email = "maria@teste.com", Senha = "123456", Tipo = TipoUsuario.Reciclador },
+        new MockUser
+        {
+            Nome = "Ferro Velho Conceicao",
+            Username = "ferrovelho",
+            Cpf = "00000000000",
+            Cnpj = "11222333000181",
+            Email = "ferrovelho@teste.com",
+            Senha = "123456",
+            Tipo = TipoUsuario.Coletor,
+            Endereco = "Av. Conceicao, 4567, Vila Maria, Sao Paulo, SP",
+            Seguidores = 5,
+            Seguindo = 10,
+            QuilosReciclados = 20,
+            MaterialMaisReciclado = "Plastico",
+            MaterialMaisRecicladoPercentual = 70,
+            UltimaAtividadePesoKg = 20,
+            UltimaAtividadeMaterial = "Plastico",
+            UltimaAtividadeKm = 1.2,
+            UltimaAtividadeQuando = "Ontem",
+            Composicao = new List<MaterialPercentual>
+            {
+                new() { Nome = "Plastico", Percentual = 70, PesoKg = 14 },
+                new() { Nome = "Metal",    Percentual = 12, PesoKg = 2.4 },
+                new() { Nome = "Vidro",    Percentual = 3,  PesoKg = 0.6 },
+                new() { Nome = "Papel",    Percentual = 0,  PesoKg = 0 },
+            }
+        },
+        new MockUser
+    {
+        Nome = "Maria Reciclagem",
+        Username = "maria",
+        Cpf = "11111111111",
+        Email = "maria@teste.com",
+        Senha = "123456",
+        Tipo = TipoUsuario.Reciclador,
+        Endereco = "Rua das Flores, 120, Jardim Sao Paulo, Sao Paulo, SP",
+        Seguidores = 12,
+        Seguindo = 8,
+        QuilosReciclados = 35,
+        MaterialMaisReciclado = "Papel",
+        MaterialMaisRecicladoPercentual = 55,
+        UltimaAtividadePesoKg = 3.5,
+        UltimaAtividadeMaterial = "Papel",
+        UltimaAtividadeKm = 0.8,
+        UltimaAtividadeQuando = "Hoje",
+        SaldoPontos = 1000,
+        Composicao = new List<MaterialPercentual>
+        {
+            new() { Nome = "Papel",    Percentual = 55, PesoKg = 19.25 },
+            new() { Nome = "Plastico", Percentual = 30, PesoKg = 10.5 },
+            new() { Nome = "Vidro",    Percentual = 10, PesoKg = 3.5 },
+            new() { Nome = "Metal",    Percentual = 5,  PesoKg = 1.75 },
+
+
+        }
+    },
         new MockUser { Nome = "EcoParceira LTDA", Username = "ecoparceira", Cpf = "22222222222", Cnpj = "99888777000166", Email = "eco@teste.com", Senha = "123456", Tipo = TipoUsuario.EmpresaParceira },
     };
 

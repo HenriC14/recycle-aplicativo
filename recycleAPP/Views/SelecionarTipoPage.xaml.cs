@@ -7,17 +7,21 @@ public partial class SelecionarTipoPage : ContentPage
         InitializeComponent();
     }
 
-    private async void OnRecicladorTapped(object sender, EventArgs e)
+    private async void OnPessoaTapped(object sender, EventArgs e)
     {
-        // Pessoa = Reciclador -> login/cadastro ja existentes
+        // Pessoa = Reciclador
         await Shell.Current.GoToAsync(nameof(LoginPage));
     }
 
     private async void OnEmpresaTapped(object sender, EventArgs e)
     {
-        // TODO: Empresa = Coletor. Por enquanto usa a mesma LoginPage generica,
-        // ate as telas de login/cadastro proprias do Coletor serem criadas.
-        // Quando existirem, trocar para: await Shell.Current.GoToAsync(nameof(LoginColetorPage));
+        // Empresa = Coletor
         await Shell.Current.GoToAsync(nameof(LoginColetorPage));
+    }
+
+    private async void OnLojaPontosClicked(object sender, EventArgs e)
+    {
+        // TEMPORARIO: so pra testar a tela sem depender de login
+        await Shell.Current.GoToAsync(nameof(LojaPontosPage));
     }
 }

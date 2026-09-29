@@ -13,6 +13,9 @@ namespace recycleAPP
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(CadastroColetorPage), typeof(CadastroColetorPage));
             Routing.RegisterRoute(nameof(LoginColetorPage), typeof(LoginColetorPage));
+            Routing.RegisterRoute(nameof(PerfilColetorPage), typeof(PerfilColetorPage));
+            Routing.RegisterRoute(nameof(PerfilRecicladorPage), typeof(PerfilRecicladorPage));
+            Routing.RegisterRoute(nameof(LojaPontosPage), typeof(LojaPontosPage));
         }
     }
 }

@@ -35,7 +35,7 @@ public partial class LoginColetorPage : ContentPage
         }
 
         CurrentSession.UsuarioLogado = loggedUser;
-        await Shell.Current.GoToAsync(nameof(WelcomePage));
+        await Shell.Current.GoToAsync(nameof(PerfilColetorPage));
     }
 
     private async void OnForgotPasswordTapped(object sender, EventArgs e)
