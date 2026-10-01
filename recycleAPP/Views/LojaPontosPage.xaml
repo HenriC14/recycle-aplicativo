@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:controls="clr-namespace:recycleAPP.Views.Controls"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:recycleAPP.Models"
              x:Class="recycleAPP.Views.LojaPontosPage"
@@ -16,10 +17,15 @@
                         HeightRequest="50"
                         BackgroundColor="#C9F4D4"
                         Stroke="Transparent">
+                    
+                    
+
                     <Label Text="&#128100;"
                            FontSize="22"
                            HorizontalOptions="Center"
                            VerticalOptions="Center" />
+                    
+                    
                 </Border>
 
                 <Label Grid.Column="1"
@@ -29,10 +35,7 @@
                        VerticalOptions="Center"
                        Margin="12,0,0,0" />
 
-                <Label Grid.Column="2"
-                       Text="&#9881;"
-                       FontSize="20"
-                       VerticalOptions="Center" />
+                <controls:SettingsMenu Grid.Column="2" VerticalOptions="Center" />
             </Grid>
 
             <Label x:Name="PontosLabel"

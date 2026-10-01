@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="recycleAPP.Views.Controls.SettingsMenu">
+
+    <VerticalStackLayout HorizontalOptions="End" Spacing="0">
+
+        <Image Source="icone_engrenagem.png"
+               HeightRequest="24"
+               WidthRequest="24"
+               HorizontalOptions="End">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnEngrenagemTapped" />
+            </Image.GestureRecognizers>
+        </Image>
+
+        <Border x:Name="DropdownBorder"
+                IsVisible="False"
+                StrokeShape="RoundRectangle 10"
+                BackgroundColor="White"
+                Stroke="#3FBF63"
+                StrokeThickness="1"
+                Padding="8"
+                Margin="0,6,0,0"
+                WidthRequest="130">
+            <Button Text="Sair (logout)"
+                    Clicked="OnLogoutClicked"
+                    BackgroundColor="#C9F4D4"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    CornerRadius="16"
+                    HeightRequest="36" />
+        </Border>
+
+    </VerticalStackLayout>
+</ContentView>
