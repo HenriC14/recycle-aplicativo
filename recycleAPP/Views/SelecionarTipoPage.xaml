@@ -52,6 +52,7 @@
                         <Label Grid.Column="0" Text="&#128100;" VerticalOptions="Center" FontSize="18" />
                         <Label Grid.Column="1"
                                Text="Reciclador"
+                               TextColor="Black"
                                FontSize="16"
                                VerticalOptions="Center" />
                     </Grid>
@@ -68,6 +69,7 @@
                         <Label Grid.Column="0" Text="&#127970;" VerticalOptions="Center" FontSize="18" />
                         <Label Grid.Column="1"
                                Text="Empresa"
+                               TextColor="Black"
                                FontSize="16"
                                VerticalOptions="Center" />
 

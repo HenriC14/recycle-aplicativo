@@ -50,6 +50,7 @@ public class MockUserService : IAuthService
 {
     private static readonly List<MockUser> Usuarios = new()
     {
+        //coletor
         new MockUser
         {
             Nome = "Ferro Velho Conceicao",
@@ -77,6 +78,7 @@ public class MockUserService : IAuthService
                 new() { Nome = "Papel",    Percentual = 0,  PesoKg = 0 },
             }
         },
+        //reciclador
         new MockUser
     {
         Nome = "Maria Reciclagem",

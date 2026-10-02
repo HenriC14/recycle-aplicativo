@@ -27,6 +27,7 @@
 
                     <Label Text="Bem-vindo ao Recycle"
                            FontSize="22"
+                           TextColor="Black"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
                            HorizontalTextAlignment="Center" />
@@ -96,6 +97,7 @@
 
                     <Label Text="Esqueci minha senha"
                            FontSize="13"
+                           TextColor="#1E90FF"
                            HorizontalOptions="Center"
                            Margin="0,4,0,0">
                         <Label.GestureRecognizers>
@@ -104,7 +106,7 @@
                     </Label>
 
                     <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
-                        <Label Text="Nao tem uma conta?" FontSize="13" />
+                        <Label Text="Nao tem uma conta?" TextColor="Black" FontSize="13" />
                         <Label Text="Crie uma agora!"
                                FontSize="13"
                                TextColor="#1E90FF"
