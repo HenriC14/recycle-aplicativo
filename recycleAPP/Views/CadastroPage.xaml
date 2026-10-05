@@ -29,6 +29,7 @@
 
                     <Label Text="Bem-vindo ao Recycle"
                            FontSize="22"
+                           TextColor="Black"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
                            HorizontalTextAlignment="Center" />
@@ -43,6 +44,7 @@
                             <Label Grid.Column="0" Text="&#128100;" VerticalOptions="Center" FontSize="16" />
                             <Entry Grid.Column="1"
                                    x:Name="UsernameEntry"
+                                   TextColor="Black"
                                    Placeholder="Nome de usuario"
                                    BackgroundColor="Transparent"
                                    PlaceholderColor="#2E2E2E" />
@@ -58,6 +60,7 @@
                             <Label Grid.Column="0" Text="&#128100;" VerticalOptions="Center" FontSize="16" />
                             <Entry Grid.Column="1"
                                    x:Name="CpfEntry"
+                                   TextColor="Black"
                                    Placeholder="CPF"
                                    Keyboard="Numeric"
                                    MaxLength="11"
@@ -75,6 +78,7 @@
                             <Label Grid.Column="0" Text="&#9993;" VerticalOptions="Center" FontSize="16" />
                             <Entry Grid.Column="1"
                                    x:Name="EmailEntry"
+                                   TextColor="Black"
                                    Placeholder="E-mail"
                                    Keyboard="Email"
                                    BackgroundColor="Transparent"
@@ -91,6 +95,7 @@
                             <Label Grid.Column="0" Text="&#128273;" VerticalOptions="Center" FontSize="16" />
                             <Entry Grid.Column="1"
                                    x:Name="SenhaEntry"
+                                   TextColor="Black"
                                    Placeholder="Senha"
                                    IsPassword="True"
                                    BackgroundColor="Transparent"
@@ -107,6 +112,7 @@
                             <Label Grid.Column="0" Text="&#128273;" VerticalOptions="Center" FontSize="16" />
                             <Entry Grid.Column="1"
                                    x:Name="ConfirmarSenhaEntry"
+                                   TextColor="Black"
                                    Placeholder="Confirmar a senha"
                                    IsPassword="True"
                                    BackgroundColor="Transparent"
@@ -133,7 +139,7 @@
 
                     <!-- Link volta pro login -->
                     <HorizontalStackLayout HorizontalOptions="Center" Spacing="4" Margin="0,4,0,0">
-                        <Label Text="Ja tem uma conta?" FontSize="13" />
+                        <Label Text="Ja tem uma conta?" TextColor="Black" FontSize="13" />
                         <Label Text="Entrar"
                                FontSize="13"
                                TextColor="#1E90FF"

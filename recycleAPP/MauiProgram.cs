@@ -27,7 +27,9 @@ namespace recycleAPP
             builder.Services.AddTransient<recycleAPP.Views.PerfilRecicladorPage>();
             builder.Services.AddTransient<recycleAPP.Views.LojaPontosPage>();
             builder.Services.AddTransient<recycleAPP.Views.DetalhesProdutoPage>();
-
+            builder.Services.AddTransient<recycleAPP.Views.InicioPage>();
+            builder.Services.AddTransient<recycleAPP.Views.NovaReciclagemPage>();
+                
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

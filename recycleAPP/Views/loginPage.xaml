@@ -28,6 +28,7 @@
 
                 <Label Text="Bem-vindo ao Recycle"
                        FontSize="22"
+                       TextColor="Black"
                        FontAttributes="Bold"
                        HorizontalOptions="Center"
                        HorizontalTextAlignment="Center" />
@@ -42,6 +43,7 @@
                         <Label Grid.Column="0" Text="&#128100;" VerticalOptions="Center" FontSize="16" />
                         <Entry Grid.Column="1"
                                x:Name="UsernameEntry"
+                               TextColor="Black"
                                Placeholder="Nome de usuario"
                                BackgroundColor="Transparent"
                                PlaceholderColor="#2E2E2E" />
@@ -57,6 +59,7 @@
                         <Label Grid.Column="0" Text="&#128273;" VerticalOptions="Center" FontSize="16" />
                         <Entry Grid.Column="1"
                                x:Name="PasswordEntry"
+                               TextColor="Black"
                                Placeholder="Senha"
                                IsPassword="True"
                                BackgroundColor="Transparent"
@@ -85,6 +88,7 @@
                 <!-- Esqueci minha senha -->
                 <Label Text="Esqueci minha senha"
                        FontSize="13"
+                       TextColor="#1E90FF"
                        HorizontalOptions="Center"
                        Margin="0,4,0,0">
                     <Label.GestureRecognizers>
@@ -94,7 +98,7 @@
 
                 <!-- Link cadastro -->
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
-                    <Label Text="Nao tem uma conta?" FontSize="13" />
+                    <Label Text="Nao tem uma conta?" TextColor="Black"  FontSize="13" />
                     <Label Text="Crie uma agora!"
                            FontSize="13"
                            TextColor="#1E90FF"

@@ -26,6 +26,7 @@
 
                 <Label Grid.Column="1"
                        Text="Loja de pontos"
+                       TextColor="Black"
                        FontSize="20"
                        FontAttributes="Bold"
                        VerticalOptions="Center"

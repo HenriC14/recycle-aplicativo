@@ -41,6 +41,7 @@
                             <Label Grid.Column="0" Text="&#128100;" VerticalOptions="Center" FontSize="16" />
                             <Entry Grid.Column="1"
                                    x:Name="CpfEntry"
+                                   TextColor="Black"
                                    Placeholder="CPF"
                                    Keyboard="Numeric"
                                    MaxLength="11"
@@ -57,6 +58,7 @@
                             <Label Grid.Column="0" Text="&#127970;" VerticalOptions="Center" FontSize="16" />
                             <Entry Grid.Column="1"
                                    x:Name="CnpjEntry"
+                                   TextColor="Black"
                                    Placeholder="CNPJ da empresa"
                                    Keyboard="Numeric"
                                    MaxLength="14"
@@ -73,6 +75,7 @@
                             <Label Grid.Column="0" Text="&#128273;" VerticalOptions="Center" FontSize="16" />
                             <Entry Grid.Column="1"
                                    x:Name="PasswordEntry"
+                                   TextColor="Black"
                                    Placeholder="Senha"
                                    IsPassword="True"
                                    BackgroundColor="Transparent"

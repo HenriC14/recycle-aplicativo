@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:recycleAPP.Views.Controls"
+             x:Class="recycleAPP.Views.NovaReciclagemPage"
+             BackgroundColor="#EAFBEF"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <VerticalStackLayout Grid.Row="0"
+                              VerticalOptions="Center"
+                              HorizontalOptions="Center"
+                              Spacing="12"
+                              Padding="24">
+            <Label Text="Inicio"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#1F8A3B"
+                   HorizontalOptions="Center" />
+            <Label Text="Tela ainda nao implementada (placeholder)."
+                   FontSize="14"
+                   TextColor="Black"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+
+        <controls:BottomNavBar Grid.Row="1" />
+
+    </Grid>
+</ContentPage>
