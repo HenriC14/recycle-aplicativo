@@ -29,15 +29,19 @@ public class MockUser
     public int Seguidores { get; set; }
     public int Seguindo { get; set; }
     public double QuilosReciclados { get; set; }
+    public int SaldoPontos { get; set; }
     public string MaterialMaisReciclado { get; set; } = string.Empty;
     public double MaterialMaisRecicladoPercentual { get; set; }
     public double UltimaAtividadePesoKg { get; set; }
     public string UltimaAtividadeMaterial { get; set; } = string.Empty;
     public double UltimaAtividadeKm { get; set; }
     public string UltimaAtividadeQuando { get; set; } = string.Empty;
-    public int SaldoPontos { get; set; }
     public List<MaterialPercentual> Composicao { get; set; } = new();
 
+    // Campos especificos do Ponto de Coleta (perfil do Coletor)
+    public string HorarioFuncionamento { get; set; } = string.Empty;
+    public bool PontoAberto { get; set; }
+    public List<string> MateriaisAceitos { get; set; } = new();
 }
 
 /// <summary>
@@ -50,13 +54,12 @@ public class MockUserService : IAuthService
 {
     private static readonly List<MockUser> Usuarios = new()
     {
-        //coletor
         new MockUser
         {
             Nome = "Ferro Velho Conceicao",
             Username = "ferrovelho",
             Cpf = "00000000000",
-            Cnpj = "11222333000181",
+            Cnpj = "12345678910111",
             Email = "ferrovelho@teste.com",
             Senha = "123456",
             Tipo = TipoUsuario.Coletor,
@@ -76,38 +79,38 @@ public class MockUserService : IAuthService
                 new() { Nome = "Metal",    Percentual = 12, PesoKg = 2.4 },
                 new() { Nome = "Vidro",    Percentual = 3,  PesoKg = 0.6 },
                 new() { Nome = "Papel",    Percentual = 0,  PesoKg = 0 },
+            },
+            HorarioFuncionamento = "08:00 - 18:00",
+            PontoAberto = true,
+            MateriaisAceitos = new List<string> { "Plastico", "Metal", "Vidro", "Papel" }
+        },
+        new MockUser
+        {
+            Nome = "Maria Reciclagem",
+            Username = "maria",
+            Cpf = "11111111111",
+            Email = "maria@teste.com",
+            Senha = "123456",
+            Tipo = TipoUsuario.Reciclador,
+            Endereco = "Rua das Flores, 120, Jardim Sao Paulo, Sao Paulo, SP",
+            Seguidores = 12,
+            Seguindo = 8,
+            QuilosReciclados = 35,
+            SaldoPontos = 1000,
+            MaterialMaisReciclado = "Papel",
+            MaterialMaisRecicladoPercentual = 55,
+            UltimaAtividadePesoKg = 3.5,
+            UltimaAtividadeMaterial = "Papel",
+            UltimaAtividadeKm = 0.8,
+            UltimaAtividadeQuando = "Hoje",
+            Composicao = new List<MaterialPercentual>
+            {
+                new() { Nome = "Papel",    Percentual = 55, PesoKg = 19.25 },
+                new() { Nome = "Plastico", Percentual = 30, PesoKg = 10.5 },
+                new() { Nome = "Vidro",    Percentual = 10, PesoKg = 3.5 },
+                new() { Nome = "Metal",    Percentual = 5,  PesoKg = 1.75 },
             }
         },
-        //reciclador
-        new MockUser
-    {
-        Nome = "Maria Reciclagem",
-        Username = "maria",
-        Cpf = "11111111111",
-        Email = "maria@teste.com",
-        Senha = "123456",
-        Tipo = TipoUsuario.Reciclador,
-        Endereco = "Rua das Flores, 120, Jardim Sao Paulo, Sao Paulo, SP",
-        Seguidores = 12,
-        Seguindo = 8,
-        QuilosReciclados = 35,
-        MaterialMaisReciclado = "Papel",
-        MaterialMaisRecicladoPercentual = 55,
-        UltimaAtividadePesoKg = 3.5,
-        UltimaAtividadeMaterial = "Papel",
-        UltimaAtividadeKm = 0.8,
-        UltimaAtividadeQuando = "Hoje",
-        SaldoPontos = 1000,
-        Composicao = new List<MaterialPercentual>
-        {
-            new() { Nome = "Papel",    Percentual = 55, PesoKg = 19.25 },
-            new() { Nome = "Plastico", Percentual = 30, PesoKg = 10.5 },
-            new() { Nome = "Vidro",    Percentual = 10, PesoKg = 3.5 },
-            new() { Nome = "Metal",    Percentual = 5,  PesoKg = 1.75 },
-
-
-        }
-    },
         new MockUser { Nome = "EcoParceira LTDA", Username = "ecoparceira", Cpf = "22222222222", Cnpj = "99888777000166", Email = "eco@teste.com", Senha = "123456", Tipo = TipoUsuario.EmpresaParceira },
     };
 

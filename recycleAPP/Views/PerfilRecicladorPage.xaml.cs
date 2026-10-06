@@ -40,9 +40,11 @@ public partial class PerfilRecicladorPage : ContentPage
         UltimaAtividadeQuandoLabel.Text = usuario.UltimaAtividadeQuando;
         UltimaAtividadePesoLabel.Text = FormatarKg(usuario.UltimaAtividadePesoKg);
         UltimaAtividadeMaterialLabel.Text = usuario.UltimaAtividadeMaterial;
+        UltimaAtividadeMaterialIcon.Source = MaterialIconHelper.ObterIcone(usuario.UltimaAtividadeMaterial);
         UltimaAtividadeKmLabel.Text = $"{usuario.UltimaAtividadeKm.ToString("0.0", CultureInfo.InvariantCulture)}KM";
 
         QuilosRecicladosLabel.Text = FormatarKg(usuario.QuilosReciclados);
+        MaterialMaisRecicladoIcon.Source = MaterialIconHelper.ObterIcone(usuario.MaterialMaisReciclado);
         MaterialMaisRecicladoLabel.Text = $"{usuario.MaterialMaisReciclado} {usuario.MaterialMaisRecicladoPercentual:0}%";
 
         PctPlasticoLabel.Text = FormatarComposicao(usuario, "Plastico");

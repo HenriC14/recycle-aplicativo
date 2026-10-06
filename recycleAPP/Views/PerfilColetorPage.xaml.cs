@@ -21,6 +21,12 @@ public partial class PerfilColetorPage : ContentPage
         UsuarioExibido ??= CurrentSession.UsuarioLogado;
         var usuario = UsuarioExibido;
 
+        // Navbar de baixo e botao de nova reciclagem so aparecem pra quem esta
+        // logado como Reciclador. Coletor tera sua propria navbar depois.
+        bool logadoComoReciclador = CurrentSession.UsuarioLogado?.Tipo == TipoUsuario.Reciclador;
+        BarraInferior.IsVisible = logadoComoReciclador;
+        NovaReciclagemBorder.IsVisible = logadoComoReciclador;
+
         if (usuario is null)
         {
             NomeLabel.Text = "Nenhum usuario logado";
@@ -34,38 +40,61 @@ public partial class PerfilColetorPage : ContentPage
 
         NomeLabel.Text = usuario.Nome;
         SeguidoresLabel.Text = usuario.Seguidores.ToString();
-        SeguindoLabel.Text = usuario.Seguindo.ToString();
         EnderecoLabel.Text = usuario.Endereco;
 
-        UltimaAtividadeQuandoLabel.Text = usuario.UltimaAtividadeQuando;
-        UltimaAtividadePesoLabel.Text = FormatarKg(usuario.UltimaAtividadePesoKg);
-        UltimaAtividadeMaterialLabel.Text = usuario.UltimaAtividadeMaterial;
-        UltimaAtividadeKmLabel.Text = $"{usuario.UltimaAtividadeKm.ToString("0.0", CultureInfo.InvariantCulture)}KM";
+        HorarioLabel.Text = usuario.HorarioFuncionamento;
+        StatusAbertoLabel.Text = usuario.PontoAberto ? "Aberto" : "Fechado";
+        StatusAbertoLabel.TextColor = usuario.PontoAberto ? Color.FromArgb("#1F8A3B") : Color.FromArgb("#D3302F");
 
-        QuilosRecicladosLabel.Text = FormatarKg(usuario.QuilosReciclados);
-        MaterialMaisRecicladoLabel.Text = $"{usuario.MaterialMaisReciclado} {usuario.MaterialMaisRecicladoPercentual:0}%";
-
-        PctPlasticoLabel.Text = FormatarComposicao(usuario, "Plastico");
-        PctVidroLabel.Text = FormatarComposicao(usuario, "Vidro");
-        PctMetalLabel.Text = FormatarComposicao(usuario, "Metal");
-        PctPapelLabel.Text = FormatarComposicao(usuario, "Papel");
+        MontarMateriaisAceitos(usuario.MateriaisAceitos);
     }
 
-    private static string FormatarKg(double kg) =>
-        kg >= 1
-            ? $"{kg.ToString("0.#", CultureInfo.InvariantCulture)}Kg"
-            : $"{(kg * 1000):0}g";
-
-    private static string FormatarComposicao(MockUser usuario, string nomeMaterial)
+    private void MontarMateriaisAceitos(List<string> materiais)
     {
-        var item = usuario.Composicao.FirstOrDefault(m =>
-            m.Nome.Equals(nomeMaterial, StringComparison.OrdinalIgnoreCase));
+        MateriaisFlexLayout.Children.Clear();
 
-        if (item is null)
-            return $"{nomeMaterial}: 0% (0Kg)";
+        foreach (var material in materiais)
+        {
+            var icone = MaterialIconHelper.ObterIcone(material);
+            if (string.IsNullOrEmpty(icone))
+                continue;
 
-        var pesoFormatado = item.PesoKg.ToString("0.#", CultureInfo.InvariantCulture);
-        return $"{item.Percentual:0}% ({pesoFormatado}Kg)";
+            var item = new VerticalStackLayout
+            {
+                Spacing = 4,
+                Margin = new Thickness(0, 0, 14, 10),
+                HorizontalOptions = LayoutOptions.Center,
+                Children =
+                {
+                    new Image
+                    {
+                        Source = icone,
+                        WidthRequest = 48,
+                        HeightRequest = 48,
+                        Aspect = Aspect.AspectFill,
+                        Clip = new Microsoft.Maui.Controls.Shapes.RoundRectangleGeometry
+                        {
+                            CornerRadius = 10,
+                            Rect = new Rect(0, 0, 48, 48)
+                        }
+                    },
+                    new Label
+                    {
+                        Text = material,
+                        TextColor = Colors.Black,
+                        FontSize = 12,
+                        HorizontalOptions = LayoutOptions.Center
+                    }
+                }
+            };
+
+            MateriaisFlexLayout.Children.Add(item);
+        }
+    }
+
+    private async void OnNovaReciclagemTapped(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(NovaReciclagemPage));
     }
 
     private async void OnAcaoPerfilClicked(object sender, EventArgs e)

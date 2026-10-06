@@ -18,14 +18,14 @@
                         HeightRequest="60"
                         BackgroundColor="#C9F4D4"
                         Stroke="Transparent">
-                        <Label Text="&#128247;"
+                        <Label TextColor="Black" Text="&#128247;"
                            FontSize="24"
                            HorizontalOptions="Center"
                            VerticalOptions="Center" />
                     </Border>
 
                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Margin="12,0,0,0" Spacing="2">
-                        <Label x:Name="NomeLabel"
+                        <Label TextColor="Black" x:Name="NomeLabel"
                            FontSize="18"
                            FontAttributes="Bold" />
                         <Border StrokeShape="RoundRectangle 10"
@@ -40,7 +40,7 @@
                         </Border>
                     </VerticalStackLayout>
 
-                    <Label Grid.Column="2"
+                    <Label TextColor="Black" Grid.Column="2"
                        Text="&#9881;"
                        FontSize="20"
                        VerticalOptions="Center" />
@@ -50,11 +50,11 @@
                 <Grid ColumnDefinitions="*,*" Margin="72,0,0,0">
                     <VerticalStackLayout Grid.Column="0">
                         <Label Text="seguidores" FontSize="12" TextColor="Gray" />
-                        <Label x:Name="SeguidoresLabel" FontSize="16" FontAttributes="Bold" />
+                        <Label TextColor="Black" x:Name="SeguidoresLabel" FontSize="16" FontAttributes="Bold" />
                     </VerticalStackLayout>
                     <VerticalStackLayout Grid.Column="1">
                         <Label Text="seguindo" FontSize="12" TextColor="Gray" />
-                        <Label x:Name="SeguindoLabel" FontSize="16" FontAttributes="Bold" />
+                        <Label TextColor="Black" x:Name="SeguindoLabel" FontSize="16" FontAttributes="Bold" />
                     </VerticalStackLayout>
                 </Grid>
 
@@ -68,7 +68,7 @@
                     HeightRequest="40" />
 
                 <HorizontalStackLayout Spacing="6">
-                    <Label Text="&#128205;" FontSize="14" />
+                    <Label TextColor="Black" Text="&#128205;" FontSize="14" />
                     <Label x:Name="EnderecoLabel"
                        FontSize="13"
                        TextColor="Gray"
@@ -83,21 +83,21 @@
                     Padding="16,12">
                     <VerticalStackLayout Spacing="10">
                         <Grid ColumnDefinitions="*,Auto">
-                            <Label Grid.Column="0" Text="Ultima atividade" FontAttributes="Bold" FontSize="15" />
+                            <Label TextColor="Black" Grid.Column="0" Text="Ultima atividade" FontAttributes="Bold" FontSize="15" />
                             <Label Grid.Column="1" x:Name="UltimaAtividadeQuandoLabel" TextColor="Gray" FontSize="13" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*,*">
                             <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
-                                <Label Text="&#128092;" FontSize="22" HorizontalOptions="Center" />
-                                <Label x:Name="UltimaAtividadePesoLabel" FontSize="13" HorizontalOptions="Center" />
+                                <Label TextColor="Black" Text="&#128092;" FontSize="22" HorizontalOptions="Center" />
+                                <Label TextColor="Black" x:Name="UltimaAtividadePesoLabel" FontSize="13" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
-                                <Label Text="&#9851;" FontSize="22" HorizontalOptions="Center" />
-                                <Label x:Name="UltimaAtividadeMaterialLabel" FontSize="13" HorizontalOptions="Center" />
+                                <Image x:Name="UltimaAtividadeMaterialIcon" WidthRequest="22" HeightRequest="22" HorizontalOptions="Center" />
+                                <Label TextColor="Black" x:Name="UltimaAtividadeMaterialLabel" FontSize="13" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
-                                <Label Text="&#128694;" FontSize="22" HorizontalOptions="Center" />
-                                <Label x:Name="UltimaAtividadeKmLabel" FontSize="13" HorizontalOptions="Center" />
+                                <Label TextColor="Black" Text="&#128694;" FontSize="22" HorizontalOptions="Center" />
+                                <Label TextColor="Black" x:Name="UltimaAtividadeKmLabel" FontSize="13" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Grid>
                     </VerticalStackLayout>
@@ -112,9 +112,9 @@
                         BackgroundColor="White"
                         Padding="12">
                         <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
-                            <Label Text="Quilos reciclados" FontSize="13" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                            <Label Text="&#128092;" FontSize="26" HorizontalOptions="Center" />
-                            <Label x:Name="QuilosRecicladosLabel" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Label TextColor="Black" Text="Quilos reciclados" FontSize="13" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                            <Label TextColor="Black" Text="&#128092;" FontSize="26" HorizontalOptions="Center" />
+                            <Label TextColor="Black" x:Name="QuilosRecicladosLabel" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
                         </VerticalStackLayout>
                     </Border>
                     <Border Grid.Column="1"
@@ -124,9 +124,9 @@
                         BackgroundColor="White"
                         Padding="12">
                         <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
-                            <Label Text="Material mais reciclado" FontSize="13" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                            <Label Text="&#127863;" FontSize="26" HorizontalOptions="Center" />
-                            <Label x:Name="MaterialMaisRecicladoLabel" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Label TextColor="Black" Text="Material mais reciclado" FontSize="13" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                            <Image x:Name="MaterialMaisRecicladoIcon" WidthRequest="26" HeightRequest="26" HorizontalOptions="Center" />
+                            <Label TextColor="Black" x:Name="MaterialMaisRecicladoLabel" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
                         </VerticalStackLayout>
                     </Border>
                 </Grid>
@@ -139,26 +139,26 @@
                     Padding="16,12">
                     <VerticalStackLayout Spacing="10">
                         <HorizontalStackLayout Spacing="6">
-                            <Label Text="&#128202;" FontSize="16" />
-                            <Label Text="Porcentagem Reciclada" FontAttributes="Bold" FontSize="15" />
+                            <Label TextColor="Black" Text="&#128202;" FontSize="16" />
+                            <Label TextColor="Black" Text="Porcentagem Reciclada" FontAttributes="Bold" FontSize="15" />
                         </HorizontalStackLayout>
 
                         <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" RowSpacing="10">
                             <HorizontalStackLayout Grid.Row="0" Grid.Column="0" Spacing="6">
-                                <Label Text="&#127863;" FontSize="16" />
-                                <Label x:Name="PctPlasticoLabel" FontSize="14" />
+                                <Image Source="simbolo_plastico.png" WidthRequest="18" HeightRequest="18" />
+                                <Label TextColor="Black" x:Name="PctPlasticoLabel" FontSize="14" />
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="0" Grid.Column="1" Spacing="6">
-                                <Label Text="&#127871;" FontSize="16" />
-                                <Label x:Name="PctVidroLabel" FontSize="14" />
+                                <Image Source="simbolo_vidro.png" WidthRequest="18" HeightRequest="18" />
+                                <Label TextColor="Black" x:Name="PctVidroLabel" FontSize="14" />
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Spacing="6">
-                                <Label Text="&#9875;" FontSize="16" />
-                                <Label x:Name="PctMetalLabel" FontSize="14" />
+                                <Image Source="simbolo_metal.png" WidthRequest="18" HeightRequest="18" />
+                                <Label TextColor="Black" x:Name="PctMetalLabel" FontSize="14" />
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Grid.Row="1" Grid.Column="1" Spacing="6">
-                                <Label Text="&#128196;" FontSize="16" />
-                                <Label x:Name="PctPapelLabel" FontSize="14" />
+                                <Image Source="simbolo_papel.png" WidthRequest="18" HeightRequest="18" />
+                                <Label TextColor="Black" x:Name="PctPapelLabel" FontSize="14" />
                             </HorizontalStackLayout>
                         </Grid>
                     </VerticalStackLayout>
