@@ -16,6 +16,7 @@ public partial class DetalhesProdutoPage : ContentPage
             EmpresaLabel.Text = value.Empresa;
             CustoLabel.Text = value.CustoPontosTexto;
             ImagemProduto.Source = value.ImagemUrl;
+            DescricaoLabel.Text = value.Descricao;
         }
     }
 

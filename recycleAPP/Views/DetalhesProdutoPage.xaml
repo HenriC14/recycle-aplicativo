@@ -21,6 +21,7 @@
             <Image x:Name="ImagemProduto"
                    Aspect="AspectFill"
                    HeightRequest="220"
+                   WidthRequest="220"
                    HorizontalOptions="Center" />
 
             <Label x:Name="NomeLabel"
@@ -46,11 +47,11 @@
                        TextColor="#1F8A3B" />
             </Border>
 
-            <Label Text="Detalhes completos do produto vao aparecer aqui (descricao, estoque, fotos adicionais etc.)"
+            <Label x:Name="DescricaoLabel"
                    FontSize="13"
                    TextColor="Gray"
                    HorizontalTextAlignment="Center"
-                   Margin="0,20,0,0" />
+                   Margin="50,20,50,0" />
 
             <Button Text="Trocar por pontos"
                     Clicked="OnTrocarClicked"

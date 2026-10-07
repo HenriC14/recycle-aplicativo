@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="recycleAPP.Views.Controls.PontoDeColetaCard">
+
+    <Border Stroke="#3FBF63"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 10"
+            BackgroundColor="White"
+            Padding="6"
+            Margin="0,0,0,8">
+        
+        <Border.GestureRecognizers>
+
+            <TapGestureRecognizer Tapped="OnCardTapped" />
+
+        </Border.GestureRecognizers>
+
+        <Grid ColumnDefinitions="78,*"
+              ColumnSpacing="8">
+
+            <!-- IMAGEM / PLACEHOLDER -->
+            <Border Grid.Column="0"
+                    WidthRequest="70"
+                    HeightRequest="70"
+                    StrokeShape="RoundRectangle 35"
+                    Stroke="Transparent"
+                    BackgroundColor="#EAFBEF"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+
+                <Label Text="♻"
+                       FontSize="30"
+                       TextColor="#3FBF63"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+
+            </Border>
+
+
+            <!-- INFORMAÇÕES -->
+            <VerticalStackLayout Grid.Column="1"
+                                 Spacing="1"
+                                 VerticalOptions="Center">
+
+                <!-- NOME -->
+                <Label Text="{Binding Nome}"
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       TextColor="#222222"
+                       LineBreakMode="TailTruncation" />
+
+                <!-- ENDEREÇO -->
+                <Label Text="{Binding Endereco}"
+                       FontSize="12"
+                       TextColor="#999999"
+                       LineBreakMode="TailTruncation"
+                       MaxLines="1" />
+
+                <!-- HORÁRIO -->
+                <Label Text="{Binding HorarioFuncionamento}"
+                       FontSize="12"
+                       TextColor="#999999"
+                       LineBreakMode="TailTruncation" />
+
+
+                <!-- MATERIAIS ACEITOS -->
+                <HorizontalStackLayout Spacing="5"
+                                       Margin="0,3,0,0">
+
+                    <!-- PLÁSTICO -->
+                    <Border x:Name="AceitaPlastico"
+                            WidthRequest="22"
+                            HeightRequest="22"
+                            StrokeShape="RoundRectangle 11"
+                            BackgroundColor="#E53935"
+                            Stroke="Transparent">
+
+                        <Label Text="♻"
+                               TextColor="White"
+                               FontSize="14"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+
+                    </Border>
+
+
+                    <!-- METAL -->
+                    <Border x:Name="AceitaMetal"
+                            WidthRequest="22"
+                            HeightRequest="22"
+                            StrokeShape="RoundRectangle 11"
+                            BackgroundColor="#FFD740"
+                            Stroke="Transparent">
+
+                        <Label Text="♻"
+                               TextColor="White"
+                               FontSize="14"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+
+                    </Border>
+
+
+                    <!-- VIDRO -->
+                    <Border x:Name="AceitaVidro"
+                            WidthRequest="22"
+                            HeightRequest="22"
+                            StrokeShape="RoundRectangle 11"
+                            BackgroundColor="#00C853"
+                            Stroke="Transparent">
+
+                        <Label Text="♻"
+                               TextColor="White"
+                               FontSize="14"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+
+                    </Border>
+
+
+                    <!-- PAPEL -->
+                    <Border x:Name="AceitaPapel"
+                            WidthRequest="22"
+                            HeightRequest="22"
+                            StrokeShape="RoundRectangle 11"
+                            BackgroundColor="#2196F3"
+                            Stroke="Transparent">
+
+                        <Label Text="♻"
+                               TextColor="White"
+                               FontSize="14"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+
+                    </Border>
+
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+
+        </Grid>
+
+    </Border>
+
+</ContentView>

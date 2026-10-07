@@ -36,6 +36,7 @@ public partial class PerfilRecicladorPage : ContentPage
         SeguidoresLabel.Text = usuario.Seguidores.ToString();
         SeguindoLabel.Text = usuario.Seguindo.ToString();
         EnderecoLabel.Text = usuario.Endereco;
+        ImagemPerfil.Source = usuario.ImagemDePerfil;
 
         UltimaAtividadeQuandoLabel.Text = usuario.UltimaAtividadeQuando;
         UltimaAtividadePesoLabel.Text = FormatarKg(usuario.UltimaAtividadePesoKg);
@@ -51,6 +52,7 @@ public partial class PerfilRecicladorPage : ContentPage
         PctVidroLabel.Text = FormatarComposicao(usuario, "Vidro");
         PctMetalLabel.Text = FormatarComposicao(usuario, "Metal");
         PctPapelLabel.Text = FormatarComposicao(usuario, "Papel");
+
     }
 
     private static string FormatarKg(double kg) =>

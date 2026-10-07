@@ -84,6 +84,9 @@
 	  <MauiXaml Update="Views\Controls\BottomNavBar.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Controls\PontoDeColetaCard.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Controls\ProdutoCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

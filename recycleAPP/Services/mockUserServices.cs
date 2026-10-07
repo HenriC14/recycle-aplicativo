@@ -18,6 +18,7 @@ public class MockUser
 {
     public string Nome { get; set; } = string.Empty;
     public string Username { get; set; } = string.Empty;
+    public string ImagemDePerfil { get; set; } = string.Empty; 
     public string Cpf { get; set; } = string.Empty;
     public string Cnpj { get; set; } = string.Empty; // usado so por Coletor/EmpresaParceira
     public string Email { get; set; } = string.Empty;
@@ -52,8 +53,17 @@ public class MockUser
 /// </summary>
 public class MockUserService : IAuthService
 {
+    public Task<List<MockUser>> GetPontosColetaAsync()
+    {
+        var pontos = Usuarios
+            .Where(u => u.Tipo == TipoUsuario.Coletor)
+            .ToList();
+
+        return Task.FromResult(pontos);
+    }
     private static readonly List<MockUser> Usuarios = new()
     {
+        //coletores
         new MockUser
         {
             Nome = "Ferro Velho Conceicao",
@@ -61,6 +71,7 @@ public class MockUserService : IAuthService
             Cpf = "00000000000",
             Cnpj = "12345678910111",
             Email = "ferrovelho@teste.com",
+            ImagemDePerfil = "ferrovelho_conceicao.png",
             Senha = "123456",
             Tipo = TipoUsuario.Coletor,
             Endereco = "Av. Conceicao, 4567, Vila Maria, Sao Paulo, SP",
@@ -84,6 +95,135 @@ public class MockUserService : IAuthService
             PontoAberto = true,
             MateriaisAceitos = new List<string> { "Plastico", "Metal", "Vidro", "Papel" }
         },
+       new MockUser
+{
+    Nome = "Metal Forte Reciclagem",
+    Username = "metalforth",
+    Cpf = "33333333333",
+    Cnpj = "33333333000133",
+    Email = "metalforth@teste.com",
+    Senha = "123456",
+    Tipo = TipoUsuario.Coletor,
+
+    Endereco = "Rua Antonio de Barros, 850, Tatuape, Sao Paulo, SP",
+
+    HorarioFuncionamento = "08:00 - 17:00",
+    PontoAberto = true,
+
+    MateriaisAceitos = new List<string>
+    {
+        "Metal"
+    }
+},
+
+new MockUser
+{
+    Nome = "Plastisul Reciclagem",
+    Username = "plastisul",
+    Cpf = "44444444444",
+    Cnpj = "44444444000144",
+    Email = "plastisul@teste.com",
+    Senha = "123456",
+    Tipo = TipoUsuario.Coletor,
+
+    Endereco = "Rua Vergueiro, 1450, Vila Mariana, Sao Paulo, SP",
+
+    HorarioFuncionamento = "09:00 - 18:00",
+    PontoAberto = true,
+
+    MateriaisAceitos = new List<string>
+    {
+        "Plastico"
+    }
+},
+
+new MockUser
+{
+    Nome = "Papel Novo Coleta",
+    Username = "papelnovo",
+    Cpf = "55555555555",
+    Cnpj = "55555555000155",
+    Email = "papelnovo@teste.com",
+    Senha = "123456",
+    Tipo = TipoUsuario.Coletor,
+
+    Endereco = "Rua das Laranjeiras, 320, Santana, Sao Paulo, SP",
+
+    HorarioFuncionamento = "08:30 - 17:30",
+    PontoAberto = true,
+
+    MateriaisAceitos = new List<string>
+    {
+        "Papel"
+    }
+},
+
+new MockUser
+{
+    Nome = "Vidro Verde Coleta",
+    Username = "vidroverde",
+    Cpf = "66666666666",
+    Cnpj = "66666666000166",
+    Email = "vidroverde@teste.com",
+    Senha = "123456",
+    Tipo = TipoUsuario.Coletor,
+
+    Endereco = "Avenida Cruzeiro do Sul, 2100, Santana, Sao Paulo, SP",
+
+    HorarioFuncionamento = "10:00 - 19:00",
+    PontoAberto = true,
+
+    MateriaisAceitos = new List<string>
+    {
+        "Vidro"
+    }
+},
+
+new MockUser
+{
+    Nome = "Eco Dupla Reciclagem",
+    Username = "ecodupla",
+    Cpf = "77777777777",
+    Cnpj = "77777777000177",
+    Email = "ecodupla@teste.com",
+    Senha = "123456",
+    Tipo = TipoUsuario.Coletor,
+
+    Endereco = "Rua Conselheiro Moreira de Barros, 670, Casa Verde, Sao Paulo, SP",
+
+    HorarioFuncionamento = "08:00 - 16:00",
+    PontoAberto = true,
+
+    MateriaisAceitos = new List<string>
+    {
+        "Plastico",
+        "Metal"
+    }
+},
+
+new MockUser
+{
+    Nome = "Recicla Tres Irmaos",
+    Username = "reciclatres",
+    Cpf = "88888888888",
+    Cnpj = "88888888000188",
+    Email = "reciclatres@teste.com",
+    Senha = "123456",
+    Tipo = TipoUsuario.Coletor,
+
+    Endereco = "Rua Voluntarios da Patria, 980, Santana, Sao Paulo, SP",
+
+    HorarioFuncionamento = "08:00 - 18:30",
+    PontoAberto = true,
+
+    MateriaisAceitos = new List<string>
+    {
+        "Plastico",
+        "Vidro",
+        "Papel"
+    }
+},
+        //recicladores
         new MockUser
         {
             Nome = "Maria Reciclagem",
@@ -91,6 +231,7 @@ public class MockUserService : IAuthService
             Cpf = "11111111111",
             Email = "maria@teste.com",
             Senha = "123456",
+            ImagemDePerfil = "maria_reciclador.png",
             Tipo = TipoUsuario.Reciclador,
             Endereco = "Rua das Flores, 120, Jardim Sao Paulo, Sao Paulo, SP",
             Seguidores = 12,

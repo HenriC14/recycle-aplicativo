@@ -17,8 +17,8 @@
 
             <Image Source="{Binding ImagemUrl}"
                    Aspect="AspectFill"
-                   HeightRequest="110"
-                   WidthRequest="110"
+                   HeightRequest="120"
+                   WidthRequest="120"
                    HorizontalOptions="Center">
                 <Image.Clip>
                     <RoundRectangleGeometry CornerRadius="10" Rect="0,0,110,110" />
@@ -26,6 +26,7 @@
             </Image>
 
             <Label Text="{Binding Nome}"
+                   TextColor="Black"
                    FontSize="12"
                    FontAttributes="Bold"
                    LineBreakMode="TailTruncation"

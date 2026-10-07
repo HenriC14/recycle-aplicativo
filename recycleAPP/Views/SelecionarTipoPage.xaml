@@ -80,15 +80,7 @@
                     </Border.GestureRecognizers>
                 </Border>
 
-                <!-- TEMPORARIO: acesso direto a Loja de pontos, so pra desenvolvimento -->
-                <Button Text="Loja de pontos (teste)"
-                        Clicked="OnLojaPontosClicked"
-                        BackgroundColor="#6FD98C"
-                        TextColor="Black"
-                        FontAttributes="Bold"
-                        CornerRadius="24"
-                        HeightRequest="44"
-                        Margin="0,16,0,0" />
+
 
             </VerticalStackLayout>
         </Border>

@@ -7,7 +7,9 @@ public partial class LojaPontosPage : ContentPage
     public LojaPontosPage()
     {
         InitializeComponent();
-        ProdutosCollectionView.ItemsSource = LojaProdutosService.ObterProdutos();
+
+        ProdutosCollectionView.ItemsSource =
+            LojaProdutosService.ObterProdutos();
     }
 
     protected override void OnAppearing()
@@ -15,13 +17,28 @@ public partial class LojaPontosPage : ContentPage
         base.OnAppearing();
 
         var usuario = CurrentSession.UsuarioLogado;
-        PontosLabel.Text = usuario is not null
-            ? $"Pontos: {usuario.SaldoPontos}"
-            : "Pontos: 0";
+
+        if (usuario is not null)
+        {
+            PontosLabel.Text =
+                $"Pontos: {usuario.SaldoPontos}";
+
+            ImagemPerfil.Source =
+                usuario.ImagemDePerfil;
+        }
+        else
+        {
+            PontosLabel.Text = "Pontos: 0";
+
+            ImagemPerfil.Source = null;
+        }
     }
 
-    private async void OnVoltarClicked(object sender, EventArgs e)
+    private async void OnVoltarClicked(
+        object sender,
+        EventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(SelecionarTipoPage));
+        await Shell.Current.GoToAsync(
+            nameof(SelecionarTipoPage));
     }
 }

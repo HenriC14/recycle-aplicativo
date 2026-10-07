@@ -14,14 +14,14 @@
                 <Grid ColumnDefinitions="Auto,*,Auto">
                     <Border Grid.Column="0"
                         StrokeShape="RoundRectangle 30"
-                        WidthRequest="60"
-                        HeightRequest="60"
+                        WidthRequest="90"
+                        HeightRequest="90"
                         BackgroundColor="#C9F4D4"
                         Stroke="Transparent">
-                        <Label TextColor="Black" Text="&#128247;"
-                           FontSize="24"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center" />
+                        <Image x:Name="ImagemPerfil"
+                           WidthRequest="90"
+                           HeightRequest="90"
+                           Aspect="AspectFill" />
                     </Border>
 
                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Margin="12,0,0,0" Spacing="2">
@@ -164,13 +164,7 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <Button Text="Sair (logout)"
-                    Clicked="OnLogoutClicked"
-                    BackgroundColor="#C9F4D4"
-                    TextColor="Black"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    Margin="0,8,0,0" />
+
 
             </VerticalStackLayout>
         </ScrollView>

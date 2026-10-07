@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:recycleAPP.Views.Controls"
@@ -6,26 +7,112 @@
              BackgroundColor="#EAFBEF"
              Shell.NavBarIsVisible="False">
 
-    <Grid RowDefinitions="*,Auto">
+    <Grid RowDefinitions="Auto,*,Auto">
 
-        <VerticalStackLayout Grid.Row="0"
-                              VerticalOptions="Center"
-                              HorizontalOptions="Center"
-                              Spacing="12"
-                              Padding="24">
-            <Label Text="Inicio"
-                   FontSize="24"
-                   FontAttributes="Bold"
-                   TextColor="#1F8A3B"
-                   HorizontalOptions="Center" />
-            <Label Text="Tela ainda nao implementada (placeholder)."
-                   FontSize="14"
-                   TextColor="Black"
-                   HorizontalOptions="Center"
-                   HorizontalTextAlignment="Center" />
-        </VerticalStackLayout>
+        <!-- FILTROS -->
 
-        <controls:BottomNavBar Grid.Row="1" />
+        <Grid Grid.Row="0"
+              Padding="7,5,7,8"
+              ColumnDefinitions="*,*,*,*"
+              ColumnSpacing="6">
+
+            <Button Grid.Column="0"
+                    x:Name="PlasticoButton"
+                    Text="♻&#10;Plástico"
+                    FontSize="12"
+                    FontAttributes="Bold"
+                    Padding="0"
+                    CornerRadius="8"
+                    HeightRequest="55"
+                    Clicked="OnFiltroClicked"
+                    CommandParameter="Plastico" />
+
+            <Button Grid.Column="1"
+                    x:Name="MetalButton"
+                    Text="♻&#10;Metal"
+                    FontSize="12"
+                    FontAttributes="Bold"
+                    Padding="0"
+                    CornerRadius="8"
+                    HeightRequest="55"
+                    Clicked="OnFiltroClicked"
+                    CommandParameter="Metal" />
+
+            <Button Grid.Column="2"
+                    x:Name="VidroButton"
+                    Text="♻&#10;Vidro"
+                    FontSize="12"
+                    FontAttributes="Bold"
+                    Padding="0"
+                    CornerRadius="8"
+                    HeightRequest="55"
+                    Clicked="OnFiltroClicked"
+                    CommandParameter="Vidro" />
+
+            <Button Grid.Column="3"
+                    x:Name="PapelButton"
+                    Text="♻&#10;Papel"
+                    FontSize="12"
+                    FontAttributes="Bold"
+                    Padding="0"
+                    CornerRadius="8"
+                    HeightRequest="55"
+                    Clicked="OnFiltroClicked"
+                    CommandParameter="Papel" />
+
+        </Grid>
+
+
+        <!-- CARDS -->
+
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding PontosFiltrados}"
+                        SelectionMode="None"
+                        Margin="15,0,15,5">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="0" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <controls:PontoDeColetaCard />
+                    
+
+                </DataTemplate>
+
+
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.EmptyView>
+
+                <VerticalStackLayout
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Spacing="8">
+
+                    <Label Text="Nenhum ponto de coleta encontrado."
+                           TextColor="#777777"
+                           FontSize="14" />
+
+                    <Label Text="Tente selecionar outro material."
+                           TextColor="#999999"
+                           FontSize="12" />
+
+                </VerticalStackLayout>
+
+            </CollectionView.EmptyView>
+
+        </CollectionView>
+
+
+        <!-- NAVBAR QUE VOCÊ JÁ POSSUI -->
+
+        <controls:BottomNavBar Grid.Row="2" />
 
     </Grid>
+
 </ContentPage>

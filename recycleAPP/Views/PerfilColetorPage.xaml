@@ -12,16 +12,15 @@
 
                 <Grid ColumnDefinitions="Auto,*,Auto">
                     <Border Grid.Column="0"
-                        StrokeShape="RoundRectangle 30"
-                        WidthRequest="60"
-                        HeightRequest="60"
-                        BackgroundColor="#C9F4D4"
-                        Stroke="Transparent">
-                        <Label TextColor="Black"
-                           Text="&#128247;"
-                           FontSize="24"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center" />
+                             StrokeShape="RoundRectangle 30"
+                             WidthRequest="90"
+                             HeightRequest="90"
+                             BackgroundColor="#C9F4D4"
+                             Stroke="Transparent">
+                        <Image x:Name="ImagemPerfil"
+                             WidthRequest="90"
+                             HeightRequest="90"
+                             Aspect="AspectFill" />
                     </Border>
 
                     <Label Grid.Column="1"

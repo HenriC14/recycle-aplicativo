@@ -13,15 +13,15 @@
         <VerticalStackLayout Grid.Row="0" Spacing="10" Margin="0,0,0,12">
             <Grid ColumnDefinitions="Auto,*,Auto">
                 <Border Grid.Column="0"
-                        StrokeShape="RoundRectangle 25"
-                        WidthRequest="50"
-                        HeightRequest="50"
+                        StrokeShape="RoundRectangle 30"
+                        WidthRequest="90"
+                        HeightRequest="90"
                         BackgroundColor="#C9F4D4"
                         Stroke="Transparent">
-                    <Label Text="&#128100;"
-                           FontSize="22"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center" />
+                    <Image x:Name="ImagemPerfil"
+                         WidthRequest="90"
+                         HeightRequest="90"
+                         Aspect="AspectFill" />
                 </Border>
 
                 <Label Grid.Column="1"
@@ -31,15 +31,17 @@
                        FontAttributes="Bold"
                        VerticalOptions="Center"
                        Margin="12,0,0,0" />
+  
 
                 <controls:SettingsMenu Grid.Column="2" VerticalOptions="Center" />
+                
             </Grid>
 
-            <Label x:Name="PontosLabel"
-                   FontSize="16"
-                   Margin="62,0,0,0" />
+            
+
 
             <!-- Botão Voltar temporário -->
+            <HorizontalStackLayout>
             <Button Text="Voltar"
                     Clicked="OnVoltarClicked"
                     BackgroundColor="#C9F4D4"
@@ -49,6 +51,13 @@
                     HeightRequest="40"
                     HorizontalOptions="Start"
                     WidthRequest="120" />
+
+            <Label x:Name="PontosLabel"
+                   FontSize="16"
+                   TextColor="Black"
+                   Margin="62,0,0,0" />
+            </HorizontalStackLayout>
+
         </VerticalStackLayout>
 
         <!-- Grid de produtos -->
@@ -65,6 +74,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ScrollView>
-
+        
     </Grid>
+    
 </ContentPage>
