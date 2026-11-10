@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:recycleAPP.Views.Controls"
+             x:Class="recycleAPP.Views.SolicitacaoReciclagemPage"
+             BackgroundColor="#EAFBEF"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView Grid.Row="0">
+
+            <VerticalStackLayout Padding="16,12" Spacing="12">
+
+                <!-- COLETOR E RECICLADOR -->
+
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+
+                    <Grid Grid.Column="0"
+                          ColumnDefinitions="64,*"
+                          ColumnSpacing="8">
+
+                        <Border WidthRequest="64"
+                                HeightRequest="64"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 40"
+                                BackgroundColor="#C9F4D4">
+
+                            <Image x:Name="ColetorImagem"
+                                   Aspect="AspectFill" />
+                        </Border>
+
+                        <Label x:Name="ColetorNomeLabel"
+                               Grid.Column="1"
+                               Text="Coletor"
+                               TextColor="Black"
+                               FontSize="15"
+                               VerticalOptions="Center"
+                               LineBreakMode="WordWrap" />
+                    </Grid>
+
+                    <Grid Grid.Column="1"
+                          ColumnDefinitions="64,*"
+                          ColumnSpacing="8">
+
+                        <Border WidthRequest="64"
+                                HeightRequest="64"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 40"
+                                BackgroundColor="#C9F4D4">
+
+                            <Image x:Name="RecicladorImagem"
+                                   Aspect="AspectFill" />
+                        </Border>
+
+                        <Label x:Name="RecicladorNomeLabel"
+                               Grid.Column="1"
+                               Text="Reciclador"
+                               TextColor="Black"
+                               FontSize="15"
+                               VerticalOptions="Center"
+                               LineBreakMode="WordWrap" />
+                    </Grid>
+                </Grid>
+
+                <!-- ÁREA PRINCIPAL -->
+
+                <Border BackgroundColor="#278B50"
+                        Padding="10"
+                        Stroke="Transparent">
+
+                    <VerticalStackLayout Spacing="12">
+
+                        <!-- FILTRO DE MATERIAIS -->
+
+                        <Grid ColumnDefinitions="*,*,*,*"
+                              ColumnSpacing="7">
+
+                            <Button x:Name="PlasticoButton"
+                                    Grid.Column="0"
+                                    Text="♻&#10;Plástico"
+                                    CommandParameter="Plastico"
+                                    Clicked="OnMaterialClicked"
+                                    FontSize="11"
+                                    Padding="2"
+                                    HeightRequest="54"
+                                    CornerRadius="10"
+                                    BackgroundColor="#777777"
+                                    TextColor="White" />
+
+                            <Button x:Name="MetalButton"
+                                    Grid.Column="1"
+                                    Text="♻&#10;Metal"
+                                    CommandParameter="Metal"
+                                    Clicked="OnMaterialClicked"
+                                    FontSize="11"
+                                    Padding="2"
+                                    HeightRequest="54"
+                                    CornerRadius="10"
+                                    BackgroundColor="#777777"
+                                    TextColor="White" />
+
+                            <Button x:Name="VidroButton"
+                                    Grid.Column="2"
+                                    Text="♻&#10;Vidro"
+                                    CommandParameter="Vidro"
+                                    Clicked="OnMaterialClicked"
+                                    FontSize="11"
+                                    Padding="2"
+                                    HeightRequest="54"
+                                    CornerRadius="10"
+                                    BackgroundColor="#777777"
+                                    TextColor="White" />
+
+                            <Button x:Name="PapelButton"
+                                    Grid.Column="3"
+                                    Text="♻&#10;Papel"
+                                    CommandParameter="Papel"
+                                    Clicked="OnMaterialClicked"
+                                    FontSize="11"
+                                    Padding="2"
+                                    HeightRequest="54"
+                                    CornerRadius="10"
+                                    BackgroundColor="#777777"
+                                    TextColor="White" />
+                        </Grid>
+
+                        <!-- PERGUNTAS -->
+
+                        <Border BackgroundColor="#D9D9D9"
+                                Padding="10"
+                                Stroke="Transparent">
+
+                            <VerticalStackLayout Spacing="4">
+
+                                <!-- PESO -->
+
+                                <Label Text="Qual é o peso (estimado) da coleta?"
+                                       TextColor="Black"
+                                       FontSize="14" />
+
+                                <VerticalStackLayout x:Name="PesoOptions"
+                                                     BackgroundColor="White"
+                                                     Padding="8,5"
+                                                     Spacing="4">
+
+                                    <RadioButton GroupName="Peso"
+                                                 Content="Menos de 2 quilos"
+                                                 Value="Menos de 2 quilos"
+                                                 TextColor="Black" />
+
+                                    <RadioButton GroupName="Peso"
+                                                 Content="Entre 2 a 10 quilos"
+                                                 Value="Entre 2 a 10 quilos"
+                                                 TextColor="Black" />
+
+                                    <RadioButton GroupName="Peso"
+                                                 Content="Entre 10 a 25 quilos"
+                                                 Value="Entre 10 a 25 quilos"
+                                                 TextColor="Black" />
+
+                                    <RadioButton GroupName="Peso"
+                                                 Content="Mais de 25 quilos"
+                                                 Value="Mais de 25 quilos"
+                                                 TextColor="Black" />
+                                </VerticalStackLayout>
+
+                                <!-- VOLUME -->
+
+                                <Label Text="Qual o volume da coleta?"
+                                       TextColor="Black"
+                                       FontSize="14" />
+
+                                <VerticalStackLayout BackgroundColor="White"
+                                                     Padding="8,5"
+                                                     Spacing="4">
+
+                                    <Grid ColumnDefinitions="Auto,*"
+                                          ColumnSpacing="4">
+
+                                        <CheckBox x:Name="VolumeUmaMao"
+                                                  Color="#278B50" />
+
+                                        <Label Grid.Column="1"
+                                               Text="Consigo levar em uma mão sozinho"
+                                               TextColor="Black"
+                                               VerticalOptions="Center">
+
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Tapped="OnVolumeLabelTapped"
+                                                    CommandParameter="UmaMao" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Grid>
+
+                                    <Grid ColumnDefinitions="Auto,*"
+                                          ColumnSpacing="4">
+
+                                        <CheckBox x:Name="VolumeDuasMaos"
+                                                  Color="#278B50" />
+
+                                        <Label Grid.Column="1"
+                                               Text="Consigo levar em duas mãos"
+                                               TextColor="Black"
+                                               VerticalOptions="Center">
+
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Tapped="OnVolumeLabelTapped"
+                                                    CommandParameter="DuasMaos" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Grid>
+
+                                    <Grid ColumnDefinitions="Auto,*"
+                                          ColumnSpacing="4">
+
+                                        <CheckBox x:Name="VolumeAjuda"
+                                                  Color="#278B50" />
+
+                                        <Label Grid.Column="1"
+                                               Text="Consigo levar com ajuda"
+                                               TextColor="Black"
+                                               VerticalOptions="Center">
+
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Tapped="OnVolumeLabelTapped"
+                                                    CommandParameter="Ajuda" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Grid>
+
+                                    <Grid ColumnDefinitions="Auto,*"
+                                          ColumnSpacing="4">
+
+                                        <CheckBox x:Name="VolumeVeiculo"
+                                                  Color="#278B50" />
+
+                                        <Label Grid.Column="1"
+                                               Text="Preciso de um veículo"
+                                               TextColor="Black"
+                                               VerticalOptions="Center">
+
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Tapped="OnVolumeLabelTapped"
+                                                    CommandParameter="Veiculo" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Grid>
+                                </VerticalStackLayout>
+
+                                <Label Text="Você pode selecionar mais de uma opção."
+                                       TextColor="#666666"
+                                       FontSize="9" />
+
+                                <!-- ESTADO DO MATERIAL -->
+
+                                <Label Text="Qual o estado do material?"
+                                       TextColor="Black"
+                                       FontSize="14" />
+
+                                <VerticalStackLayout x:Name="EstadoOptions"
+                                                     BackgroundColor="White"
+                                                     Padding="8,5"
+                                                     Spacing="4">
+
+                                    <RadioButton GroupName="Estado"
+                                                 Content="Limpo e seco"
+                                                 Value="Limpo e seco"
+                                                 TextColor="Black" />
+
+                                    <RadioButton GroupName="Estado"
+                                                 Content="Molhado ou úmido"
+                                                 Value="Molhado ou úmido"
+                                                 TextColor="Black" />
+
+                                    <RadioButton GroupName="Estado"
+                                                 Content="Um pouco sujo"
+                                                 Value="Um pouco sujo"
+                                                 TextColor="Black" />
+
+                                    <RadioButton GroupName="Estado"
+                                                 Content="Muito sujo"
+                                                 Value="Muito sujo"
+                                                 TextColor="Black" />
+                                </VerticalStackLayout>
+
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- BOTÃO SALVAR -->
+
+                        <Button Text="Salvar solicitação"
+                                Clicked="OnSalvarClicked"
+                                BackgroundColor="#145D35"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                CornerRadius="12"
+                                HeightRequest="48" />
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- BARRA INFERIOR -->
+
+        <controls:BottomNavBar Grid.Row="1" />
+
+    </Grid>
+
+</ContentPage>

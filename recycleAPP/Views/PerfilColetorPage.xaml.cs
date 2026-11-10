@@ -1,5 +1,6 @@
+
 using recycleAPP.Services;
-using System.Globalization;
+using static recycleAPP.Services.MockUserService;
 
 namespace recycleAPP.Views;
 
@@ -13,7 +14,8 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
         InitializeComponent();
     }
 
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    public void ApplyQueryAttributes(
+        IDictionary<string, object> query)
     {
         if (query.TryGetValue("Usuario", out var valor) &&
             valor is MockUser usuario)
@@ -22,12 +24,12 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
         }
     }
 
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
 
         // Se nenhum usuário foi passado pela navegação,
-        // usa o usuário logado como alternativa.
+        // utiliza o usuário logado como alternativa.
         UsuarioExibido ??= CurrentSession.UsuarioLogado;
 
         var usuario = UsuarioExibido;
@@ -46,6 +48,8 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
             HorarioLabel.Text = "";
             StatusAbertoLabel.Text = "";
             MateriaisFlexLayout.Children.Clear();
+            ImagemPerfil.Source = null;
+            AcaoPerfilButton.Text = "Seguir";
 
             return;
         }
@@ -60,6 +64,11 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
             ehPerfilProprio ? "Editar perfil" : "Seguir";
 
         NomeLabel.Text = usuario.Nome;
+
+        ImagemPerfil.Source =
+            string.IsNullOrWhiteSpace(usuario.ImagemDePerfil)
+                ? null
+                : usuario.ImagemDePerfil;
 
         SeguidoresLabel.Text =
             usuario.Seguidores.ToString();
@@ -82,46 +91,10 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
 
         MontarMateriaisAceitos(
             usuario.MateriaisAceitos);
-
-        // =========================================================
-        // SOLICITAÇÃO DO RECICLADOR PARA O COLETOR
-        // =========================================================
-        //
-        // Só verifica a solicitação quando:
-        // 1. O perfil exibido pertence a um coletor;
-        // 2. O usuário atualmente logado também é um coletor.
-        //
-        // Isso garante que um coletor não veja solicitações
-        // destinadas a outro coletor.
-        //
-        if (usuario.Tipo == TipoUsuario.Coletor &&
-            CurrentSession.UsuarioLogado?.Tipo == TipoUsuario.Coletor)
-        {
-            await MostrarSolicitacaoPendente(usuario);
-        }
     }
 
-    private async Task MostrarSolicitacaoPendente(MockUser coletor)
-    {
-        var solicitacao =
-            SolicitacaoMockService.ObterSolicitacaoParaColetor(coletor);
-
-        // Não existe solicitação para este coletor.
-        if (solicitacao is null)
-            return;
-
-        bool ignorar = await DisplayAlert(
-            "Nova solicitação",
-            $"{solicitacao.RecicladorNome} enviou uma solicitação para você.",
-            "Ignorar",
-            "Fechar");
-
-        // Por enquanto, tanto "Ignorar" quanto "Fechar"
-        // encerram a solicitação temporária.
-        SolicitacaoMockService.IgnorarSolicitacao(solicitacao);
-    }
-
-    private void MontarMateriaisAceitos(List<string> materiais)
+    private void MontarMateriaisAceitos(
+        List<string> materiais)
     {
         MateriaisFlexLayout.Children.Clear();
 
@@ -172,38 +145,31 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
         }
     }
 
+    // Abre a tela de solicitação de reciclagem
     private async void OnNovaReciclagemTapped(
         object sender,
         EventArgs e)
     {
-        var usuarioLogado = CurrentSession.UsuarioLogado;
-
-        // O botão "+" só funciona para um reciclador.
-        if (usuarioLogado is null ||
-            usuarioLogado.Tipo != TipoUsuario.Reciclador)
+        if (UsuarioExibido is null)
         {
+            await DisplayAlert(
+                "Solicitação",
+                "Não foi possível identificar este coletor.",
+                "OK"
+            );
+
             return;
         }
 
-        var coletor = UsuarioExibido;
-
-        // Garante que o perfil aberto pertence realmente
-        // a um coletor.
-        if (coletor is null ||
-            coletor.Tipo != TipoUsuario.Coletor)
+        var parametros = new Dictionary<string, object>
         {
-            return;
-        }
+            { "Coletor", UsuarioExibido }
+        };
 
-        // Cria a solicitação temporária.
-        SolicitacaoMockService.CriarSolicitacao(
-            usuarioLogado,
-            coletor);
-
-        await DisplayAlert(
-            "Solicitação enviada",
-            $"Uma solicitação foi enviada para {coletor.Nome}.",
-            "OK");
+        await Shell.Current.GoToAsync(
+            nameof(SolicitacaoReciclagemPage),
+            parametros
+        );
     }
 
     private async void OnAcaoPerfilClicked(
@@ -215,14 +181,16 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
             await DisplayAlert(
                 "Editar perfil",
                 "Tela de edicao de perfil ainda nao implementada.",
-                "OK");
+                "OK"
+            );
         }
         else
         {
             await DisplayAlert(
                 "Seguir",
                 "Funcionalidade de seguir ainda nao implementada.",
-                "OK");
+                "OK"
+            );
         }
     }
 
@@ -230,10 +198,9 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
         object sender,
         EventArgs e)
     {
-        // Remove o usuário atual da sessão.
         CurrentSession.UsuarioLogado = null;
 
-        // Volta para a tela de login.
-        await Shell.Current.GoToAsync("//loginPage");
+        await Shell.Current.GoToAsync(
+            nameof(SelecionarTipoPage));
     }
 }
