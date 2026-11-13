@@ -1,4 +1,6 @@
-
+using Microsoft.Maui.Controls.Shapes;
+using Microsoft.Maui.Layouts;
+using recycleAPP.Models;
 using recycleAPP.Services;
 using static recycleAPP.Services.MockUserService;
 
@@ -14,6 +16,10 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
         InitializeComponent();
     }
 
+    // ==========================================
+    // RECEBE USUÁRIO DA NAVEGAÇÃO
+    // ==========================================
+
     public void ApplyQueryAttributes(
         IDictionary<string, object> query)
     {
@@ -23,6 +29,10 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
             UsuarioExibido = usuario;
         }
     }
+
+    // ==========================================
+    // CARREGAMENTO DO PERFIL
+    // ==========================================
 
     protected override void OnAppearing()
     {
@@ -91,7 +101,19 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
 
         MontarMateriaisAceitos(
             usuario.MateriaisAceitos);
+
+        // Verifica as solicitações somente quando
+        // o coletor está visualizando o próprio perfil.
+        if (ehPerfilProprio &&
+            usuario.Tipo == TipoUsuario.Coletor)
+        {
+            VerificarSolicitacoesPendentes();
+        }
     }
+
+    // ==========================================
+    // MATERIAIS ACEITOS PELO COLETOR
+    // ==========================================
 
     private void MontarMateriaisAceitos(
         List<string> materiais)
@@ -145,7 +167,401 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
         }
     }
 
-    // Abre a tela de solicitação de reciclagem
+    // ==========================================
+    // VERIFICAR SOLICITAÇÕES DO COLETOR
+    // ==========================================
+
+    private void VerificarSolicitacoesPendentes()
+    {
+        var coletor = CurrentSession.UsuarioLogado;
+
+        if (coletor is null ||
+            coletor.Tipo != TipoUsuario.Coletor)
+            return;
+
+        // Evita abrir novamente durante o mesmo login.
+        if (CurrentSession.NotificacoesColetorVerificadas)
+            return;
+
+        CurrentSession.NotificacoesColetorVerificadas = true;
+
+        // Busca somente solicitações destinadas
+        // ao coletor que está logado.
+        var solicitacoes = MockUserService.Solicitacoes
+            .Where(s =>
+                s.ColetorUsername.Equals(
+                    coletor.Username,
+                    StringComparison.OrdinalIgnoreCase))
+            .OrderBy(s => s.DataCriacao)
+            .ToList();
+
+        if (solicitacoes.Count == 0)
+            return;
+
+        // Limpa notificações anteriores da interface.
+        SolicitacoesStack.Children.Clear();
+
+        // Cria um cartão para cada solicitação.
+        foreach (var solicitacao in solicitacoes)
+        {
+            var card = CriarCardSolicitacao(solicitacao);
+
+            SolicitacoesStack.Children.Add(card);
+        }
+
+        // Atualiza a quantidade de solicitações.
+        NotificacaoQuantidadeLabel.Text =
+            solicitacoes.Count == 1
+                ? "Você recebeu 1 nova solicitação."
+                : $"Você recebeu {solicitacoes.Count} novas solicitações.";
+
+        // Exibe a notificação sobreposta.
+        NotificacaoOverlay.IsVisible = true;
+    }
+
+    // ==========================================
+    // CRIAR CARTÃO DA SOLICITAÇÃO
+    // ==========================================
+
+    private Border CriarCardSolicitacao(
+        SolicitacaoReciclagem solicitacao)
+    {
+        var conteudo = new VerticalStackLayout
+        {
+            Spacing = 10
+        };
+
+        // --------------------------------------
+        // FOTO E NOME DO RECICLADOR
+        // --------------------------------------
+
+        var imagem = new Image
+        {
+            WidthRequest = 58,
+            HeightRequest = 58,
+            Aspect = Aspect.AspectFill
+        };
+
+        if (!string.IsNullOrWhiteSpace(
+            solicitacao.RecicladorImagem))
+        {
+            imagem.Source = ImageSource.FromFile(
+                solicitacao.RecicladorImagem
+            );
+        }
+
+        var imagemBorder = new Border
+        {
+            WidthRequest = 58,
+            HeightRequest = 58,
+            Stroke = Colors.Transparent,
+            StrokeShape = new RoundRectangle
+            {
+                CornerRadius = 40
+            },
+            Content = imagem
+        };
+
+        var nomeReciclador = new Label
+        {
+            Text = solicitacao.RecicladorNome,
+            TextColor = Colors.Black,
+            FontSize = 17,
+            FontAttributes = FontAttributes.Bold,
+            VerticalOptions = LayoutOptions.Center
+        };
+
+        var identificacao = new HorizontalStackLayout
+        {
+            Spacing = 12,
+            VerticalOptions = LayoutOptions.Center,
+            Children =
+            {
+                imagemBorder,
+                nomeReciclador
+            }
+        };
+
+        conteudo.Children.Add(identificacao);
+
+        // --------------------------------------
+        // MATERIAIS SELECIONADOS
+        // --------------------------------------
+
+        conteudo.Children.Add(
+            CriarTitulo("Materiais selecionados")
+        );
+
+        var materiaisLayout = new FlexLayout
+        {
+            Direction = FlexDirection.Row,
+            Wrap = FlexWrap.Wrap,
+            JustifyContent = FlexJustify.Start
+        };
+
+        foreach (var material in solicitacao.Materiais)
+        {
+            materiaisLayout.Children.Add(
+                CriarMaterialChip(material)
+            );
+        }
+
+        conteudo.Children.Add(materiaisLayout);
+
+        // --------------------------------------
+        // RESPOSTA DA PRIMEIRA PERGUNTA
+        // --------------------------------------
+
+        conteudo.Children.Add(
+            CriarResposta(
+                "Peso estimado da coleta",
+                solicitacao.PesoEstimado
+            )
+        );
+
+        // --------------------------------------
+        // RESPOSTAS DA SEGUNDA PERGUNTA
+        // --------------------------------------
+
+        string volumeTexto =
+            solicitacao.Volume.Count > 0
+                ? string.Join(
+                    Environment.NewLine,
+                    solicitacao.Volume.Select(v => "• " + v)
+                )
+                : "Não informado";
+
+        conteudo.Children.Add(
+            CriarResposta(
+                "Volume da coleta",
+                volumeTexto
+            )
+        );
+
+        // --------------------------------------
+        // RESPOSTA DA TERCEIRA PERGUNTA
+        // --------------------------------------
+
+        conteudo.Children.Add(
+            CriarResposta(
+                "Estado do material",
+                solicitacao.EstadoMaterial
+            )
+        );
+
+        // --------------------------------------
+        // BOTÕES ACEITAR E RECUSAR
+        // --------------------------------------
+
+        var botaoRecusar = new Button
+        {
+            Text = "Recusar",
+            BackgroundColor = Color.FromArgb("#AAAAAA"),
+            TextColor = Colors.White,
+            CornerRadius = 12,
+            FontSize = 15,
+            FontAttributes = FontAttributes.Bold,
+            HeightRequest = 44,
+            HorizontalOptions = LayoutOptions.Fill
+        };
+
+        botaoRecusar.Clicked += OnAcaoSolicitacaoFuturaClicked;
+
+        var botaoAceitar = new Button
+        {
+            Text = "Aceitar",
+            BackgroundColor = Color.FromArgb("#28C85A"),
+            TextColor = Colors.White,
+            CornerRadius = 12,
+            FontSize = 15,
+            FontAttributes = FontAttributes.Bold,
+            HeightRequest = 44,
+            HorizontalOptions = LayoutOptions.Fill
+        };
+
+        botaoAceitar.Clicked += OnAcaoSolicitacaoFuturaClicked;
+
+        var botoes = new Grid
+        {
+            ColumnDefinitions =
+            {
+                new ColumnDefinition(GridLength.Star),
+                new ColumnDefinition(GridLength.Star)
+            },
+            ColumnSpacing = 8,
+            Children =
+            {
+                botaoRecusar,
+                botaoAceitar
+            }
+        };
+
+        Grid.SetColumn(botaoRecusar, 0);
+        Grid.SetColumn(botaoAceitar, 1);
+
+        conteudo.Children.Add(botoes);
+
+        // --------------------------------------
+        // BORDA DO CARTÃO
+        // --------------------------------------
+
+        return new Border
+        {
+            BackgroundColor = Colors.White,
+            Stroke = Color.FromArgb("#D0E8D6"),
+            StrokeThickness = 1,
+            StrokeShape = new RoundRectangle
+            {
+                CornerRadius = 14
+            },
+            Padding = 12,
+            Content = conteudo
+        };
+    }
+
+    // ==========================================
+    // CRIAR TÍTULO DE UMA SEÇÃO
+    // ==========================================
+
+    private Label CriarTitulo(string texto)
+    {
+        return new Label
+        {
+            Text = texto,
+            TextColor = Colors.Black,
+            FontSize = 14,
+            FontAttributes = FontAttributes.Bold
+        };
+    }
+
+    // ==========================================
+    // CRIAR RESPOSTA DE UMA PERGUNTA
+    // ==========================================
+
+    private VerticalStackLayout CriarResposta(
+        string pergunta,
+        string resposta)
+    {
+        var layout = new VerticalStackLayout
+        {
+            Spacing = 3
+        };
+
+        layout.Children.Add(
+            CriarTitulo(pergunta)
+        );
+
+        layout.Children.Add(
+            new Label
+            {
+                Text = string.IsNullOrWhiteSpace(resposta)
+                    ? "Não informado"
+                    : resposta,
+
+                TextColor = Color.FromArgb("#444444"),
+                FontSize = 13,
+                LineBreakMode = LineBreakMode.WordWrap
+            }
+        );
+
+        return layout;
+    }
+
+    // ==========================================
+    // CRIAR IDENTIFICAÇÃO VISUAL DO MATERIAL
+    // ==========================================
+
+    private Border CriarMaterialChip(string material)
+    {
+        string nome = material;
+
+        Color fundo;
+        Color texto;
+
+        switch (material.ToLowerInvariant())
+        {
+            case "plastico":
+            case "plástico":
+                nome = "♻ Plástico";
+                fundo = Color.FromArgb("#F9DADA");
+                texto = Color.FromArgb("#B52626");
+                break;
+
+            case "metal":
+                nome = "♻ Metal";
+                fundo = Color.FromArgb("#FFF0B8");
+                texto = Color.FromArgb("#8A6810");
+                break;
+
+            case "vidro":
+                nome = "♻ Vidro";
+                fundo = Color.FromArgb("#D5F5D9");
+                texto = Color.FromArgb("#197B38");
+                break;
+
+            case "papel":
+                nome = "♻ Papel";
+                fundo = Color.FromArgb("#D9EDFF");
+                texto = Color.FromArgb("#1976B9");
+                break;
+
+            default:
+                fundo = Color.FromArgb("#E5E5E5");
+                texto = Colors.Black;
+                break;
+        }
+
+        return new Border
+        {
+            BackgroundColor = fundo,
+            Stroke = Colors.Transparent,
+            StrokeShape = new RoundRectangle
+            {
+                CornerRadius = 10
+            },
+            Padding = new Thickness(10, 6),
+            Margin = new Thickness(0, 0, 6, 6),
+
+            Content = new Label
+            {
+                Text = nome,
+                TextColor = texto,
+                FontSize = 12,
+                FontAttributes = FontAttributes.Bold
+            }
+        };
+    }
+
+    // ==========================================
+    // BOTÕES PROVISÓRIOS
+    // ==========================================
+
+    private async void OnAcaoSolicitacaoFuturaClicked(
+        object sender,
+        EventArgs e)
+    {
+        await DisplayAlert(
+            "Funcionalidade futura",
+            "A opção de aceitar ou recusar solicitações será implementada posteriormente.",
+            "OK"
+        );
+    }
+
+    // ==========================================
+    // FECHAR NOTIFICAÇÃO
+    // ==========================================
+
+    private void OnFecharNotificacoesClicked(
+        object sender,
+        EventArgs e)
+    {
+        NotificacaoOverlay.IsVisible = false;
+    }
+
+    // ==========================================
+    // ABRIR TELA DE SOLICITAÇÃO DE RECICLAGEM
+    // ==========================================
+
     private async void OnNovaReciclagemTapped(
         object sender,
         EventArgs e)
@@ -172,6 +588,10 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
         );
     }
 
+    // ==========================================
+    // BOTÃO DE AÇÃO DO PERFIL
+    // ==========================================
+
     private async void OnAcaoPerfilClicked(
         object sender,
         EventArgs e)
@@ -194,13 +614,20 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
         }
     }
 
+    // ==========================================
+    // SAIR DA CONTA
+    // ==========================================
+
     private async void OnLogoutClicked(
         object sender,
         EventArgs e)
     {
         CurrentSession.UsuarioLogado = null;
 
+        CurrentSession.NotificacoesColetorVerificadas = false;
+
         await Shell.Current.GoToAsync(
-            nameof(SelecionarTipoPage));
+            nameof(SelecionarTipoPage)
+        );
     }
 }

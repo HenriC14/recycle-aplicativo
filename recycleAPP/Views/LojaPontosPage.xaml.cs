@@ -1,3 +1,4 @@
+
 using recycleAPP.Services;
 
 namespace recycleAPP.Views;
@@ -34,11 +35,12 @@ public partial class LojaPontosPage : ContentPage
         }
     }
 
+    // Retorna para a página anterior,
+    // independentemente de onde a Loja foi aberta.
     private async void OnVoltarClicked(
         object sender,
         EventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            nameof(SelecionarTipoPage));
+        await Shell.Current.GoToAsync("..");
     }
 }
