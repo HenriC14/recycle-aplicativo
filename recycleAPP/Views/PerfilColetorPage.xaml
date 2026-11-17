@@ -16,6 +16,8 @@
 
             <VerticalStackLayout Padding="20" Spacing="14">
 
+                <!-- CABEÇALHO -->
+
                 <Grid ColumnDefinitions="Auto,*,Auto">
 
                     <Border Grid.Column="0"
@@ -29,6 +31,7 @@
                                WidthRequest="90"
                                HeightRequest="90"
                                Aspect="AspectFill" />
+
                     </Border>
 
                     <Label Grid.Column="1"
@@ -44,18 +47,40 @@
 
                 </Grid>
 
-                <VerticalStackLayout Margin="72,0,0,0">
+                <!-- SEGUIDORES E SEGUINDO -->
 
-                    <Label Text="seguidores"
-                           FontSize="12"
-                           TextColor="Gray" />
+                <Grid ColumnDefinitions="*,*"
+                      Margin="72,0,0,0">
 
-                    <Label x:Name="SeguidoresLabel"
-                           TextColor="Black"
-                           FontSize="16"
-                           FontAttributes="Bold" />
+                    <VerticalStackLayout Grid.Column="0">
 
-                </VerticalStackLayout>
+                        <Label Text="seguidores"
+                               FontSize="12"
+                               TextColor="Gray" />
+
+                        <Label x:Name="SeguidoresLabel"
+                               TextColor="Black"
+                               FontSize="16"
+                               FontAttributes="Bold" />
+
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="1">
+
+                        <Label Text="seguindo"
+                               FontSize="12"
+                               TextColor="Gray" />
+
+                        <Label x:Name="SeguindoLabel"
+                               TextColor="Black"
+                               FontSize="16"
+                               FontAttributes="Bold" />
+
+                    </VerticalStackLayout>
+
+                </Grid>
+
+                <!-- BOTÕES DE AÇÃO -->
 
                 <Grid ColumnDefinitions="*,Auto"
                       ColumnSpacing="10">
@@ -87,13 +112,17 @@
                                VerticalOptions="Center" />
 
                         <Border.GestureRecognizers>
+
                             <TapGestureRecognizer
                                 Tapped="OnNovaReciclagemTapped" />
+
                         </Border.GestureRecognizers>
 
                     </Border>
 
                 </Grid>
+
+                <!-- HORÁRIO E STATUS -->
 
                 <VerticalStackLayout Spacing="0">
 
@@ -107,6 +136,8 @@
                            FontSize="14" />
 
                 </VerticalStackLayout>
+
+                <!-- MATERIAIS ACEITOS -->
 
                 <Border StrokeShape="RoundRectangle 16"
                         Stroke="#3FBF63"
@@ -130,6 +161,8 @@
 
                 </Border>
 
+                <!-- ENDEREÇO -->
+
                 <HorizontalStackLayout Spacing="6">
 
                     <Label TextColor="Black"
@@ -142,6 +175,8 @@
                            LineBreakMode="WordWrap" />
 
                 </HorizontalStackLayout>
+
+                <!-- MAPA -->
 
                 <Border StrokeShape="RoundRectangle 16"
                         Stroke="#3FBF63"

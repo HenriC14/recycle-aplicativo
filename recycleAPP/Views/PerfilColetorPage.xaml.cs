@@ -70,8 +70,7 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
                 usuario.Username,
                 StringComparison.OrdinalIgnoreCase);
 
-        AcaoPerfilButton.Text =
-            ehPerfilProprio ? "Editar perfil" : "Seguir";
+        AtualizarEstadoRelacionamento(usuario, ehPerfilProprio);
 
         NomeLabel.Text = usuario.Nome;
 
@@ -81,7 +80,12 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
                 : usuario.ImagemDePerfil;
 
         SeguidoresLabel.Text =
-            usuario.Seguidores.ToString();
+            MockUserService.ObterQuantidadeSeguidores(
+                usuario.Username).ToString();
+
+        SeguindoLabel.Text =
+            MockUserService.ObterQuantidadeSeguindo(
+                usuario.Username).ToString();
 
         EnderecoLabel.Text =
             usuario.Endereco;
@@ -592,27 +596,127 @@ public partial class PerfilColetorPage : ContentPage, IQueryAttributable
     // BOTÃO DE AÇÃO DO PERFIL
     // ==========================================
 
+
+    // ==========================================
+    // BOTÃO SEGUIR / NÃO SEGUIR
+    // ==========================================
+
     private async void OnAcaoPerfilClicked(
         object sender,
         EventArgs e)
     {
-        if (AcaoPerfilButton.Text == "Editar perfil")
+        var usuario = UsuarioExibido;
+        var usuarioLogado = CurrentSession.UsuarioLogado;
+
+        if (usuario is null)
+            return;
+
+        bool ehPerfilProprio =
+            usuarioLogado is not null &&
+            usuarioLogado.Username.Equals(
+                usuario.Username,
+                StringComparison.OrdinalIgnoreCase);
+
+        if (ehPerfilProprio)
         {
             await DisplayAlert(
                 "Editar perfil",
                 "Tela de edicao de perfil ainda nao implementada.",
                 "OK"
             );
+
+            return;
+        }
+
+        if (usuarioLogado is null)
+        {
+            await DisplayAlert(
+                "Entrar na conta",
+                "Voce precisa estar logado para seguir outra conta.",
+                "OK"
+            );
+
+            return;
+        }
+
+        bool jaEstaSeguindo = MockUserService.EstaSeguindo(
+            usuarioLogado.Username,
+            usuario.Username);
+
+        if (jaEstaSeguindo)
+        {
+            await MockUserService.DeixarDeSeguirUsuarioAsync(
+                usuarioLogado.Username,
+                usuario.Username);
         }
         else
         {
-            await DisplayAlert(
-                "Seguir",
-                "Funcionalidade de seguir ainda nao implementada.",
-                "OK"
-            );
+            await MockUserService.SeguirUsuarioAsync(
+                usuarioLogado.Username,
+                usuario.Username);
         }
+
+        AtualizarEstadoRelacionamento(
+            usuario,
+            ehPerfilProprio: false
+        );
+
+        SeguidoresLabel.Text =
+            MockUserService.ObterQuantidadeSeguidores(
+                usuario.Username).ToString();
+
+        SeguindoLabel.Text =
+            MockUserService.ObterQuantidadeSeguindo(
+                usuario.Username).ToString();
     }
+
+    // ==========================================
+    // ATUALIZAR ESTADO DO RELACIONAMENTO
+    // ==========================================
+
+    private void AtualizarEstadoRelacionamento(
+        MockUser usuario,
+        bool ehPerfilProprio)
+    {
+        if (ehPerfilProprio)
+        {
+            AcaoPerfilButton.Text = "Editar perfil";
+
+            AcaoPerfilButton.BackgroundColor =
+                Color.FromArgb("#3FBF63");
+
+            AcaoPerfilButton.IsEnabled = true;
+
+            return;
+        }
+
+        var usuarioLogado = CurrentSession.UsuarioLogado;
+
+        bool estaSeguindo =
+            usuarioLogado is not null &&
+            MockUserService.EstaSeguindo(
+                usuarioLogado.Username,
+                usuario.Username);
+
+        if (estaSeguindo)
+        {
+            AcaoPerfilButton.Text = "Não seguir";
+
+            AcaoPerfilButton.BackgroundColor =
+                Color.FromArgb("#AAAAAA");
+        }
+        else
+        {
+            AcaoPerfilButton.Text = "Seguir";
+
+            AcaoPerfilButton.BackgroundColor =
+                Color.FromArgb("#3FBF63");
+        }
+
+        AcaoPerfilButton.IsEnabled =
+            usuarioLogado is not null;
+    }
+
 
     // ==========================================
     // SAIR DA CONTA

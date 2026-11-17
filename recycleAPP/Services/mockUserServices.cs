@@ -77,6 +77,149 @@ public class MockUserService : IAuthService
         return Task.CompletedTask;
     }
 
+
+    // ==========================================
+    // RELACIONAMENTOS: SEGUIR / DEIXAR DE SEGUIR
+    // ==========================================
+
+    // ARMAZENAMENTO TEMPORÁRIO EM MEMÓRIA.
+    //
+    // FUTURA INTEGRAÇÃO COM BANCO DE DADOS:
+    // Substituir a lista Relacionamentos e os métodos
+    // desta seção por operações no banco de dados.
+    //
+    // A estrutura de cada relacionamento será:
+    // - SeguidorUsername
+    // - SeguidoUsername
+    //
+    // Manter as assinaturas dos métodos facilita
+    // a substituição sem precisar modificar as páginas.
+
+    private static readonly List<RelacionamentoSeguir> Relacionamentos = new();
+
+    private class RelacionamentoSeguir
+    {
+        public string SeguidorUsername { get; set; } = string.Empty;
+
+        public string SeguidoUsername { get; set; } = string.Empty;
+    }
+
+    // Verifica se uma conta já segue outra.
+    public static bool EstaSeguindo(
+        string seguidorUsername,
+        string seguidoUsername)
+    {
+        return Relacionamentos.Any(r =>
+            r.SeguidorUsername.Equals(
+                seguidorUsername,
+                StringComparison.OrdinalIgnoreCase) &&
+
+            r.SeguidoUsername.Equals(
+                seguidoUsername,
+                StringComparison.OrdinalIgnoreCase));
+    }
+
+    // Registrar relacionamento.
+    public static Task<bool> SeguirUsuarioAsync(
+        string seguidorUsername,
+        string seguidoUsername)
+    {
+        // Impede dados vazios e que uma conta siga a si mesma.
+        if (string.IsNullOrWhiteSpace(seguidorUsername) ||
+            string.IsNullOrWhiteSpace(seguidoUsername) ||
+            seguidorUsername.Equals(
+                seguidoUsername,
+                StringComparison.OrdinalIgnoreCase))
+        {
+            return Task.FromResult(false);
+        }
+
+        // Verifica se as duas contas existem.
+        bool seguidorExiste = Usuarios.Any(u =>
+            u.Username.Equals(
+                seguidorUsername,
+                StringComparison.OrdinalIgnoreCase));
+
+        bool seguidoExiste = Usuarios.Any(u =>
+            u.Username.Equals(
+                seguidoUsername,
+                StringComparison.OrdinalIgnoreCase));
+
+        // Impede relacionamentos duplicados.
+        if (!seguidorExiste ||
+            !seguidoExiste ||
+            EstaSeguindo(seguidorUsername, seguidoUsername))
+        {
+            return Task.FromResult(false);
+        }
+
+        Relacionamentos.Add(new RelacionamentoSeguir
+        {
+            SeguidorUsername = seguidorUsername,
+            SeguidoUsername = seguidoUsername
+        });
+
+        AtualizarContadoresRelacionamentos();
+
+        return Task.FromResult(true);
+    }
+
+    // Remover relacionamento.
+    public static Task<bool> DeixarDeSeguirUsuarioAsync(
+        string seguidorUsername,
+        string seguidoUsername)
+    {
+        var relacionamento = Relacionamentos.FirstOrDefault(r =>
+            r.SeguidorUsername.Equals(
+                seguidorUsername,
+                StringComparison.OrdinalIgnoreCase) &&
+
+            r.SeguidoUsername.Equals(
+                seguidoUsername,
+                StringComparison.OrdinalIgnoreCase));
+
+        if (relacionamento is null)
+            return Task.FromResult(false);
+
+        Relacionamentos.Remove(relacionamento);
+
+        AtualizarContadoresRelacionamentos();
+
+        return Task.FromResult(true);
+    }
+
+    // Quantidade de seguidores de uma conta.
+    public static int ObterQuantidadeSeguidores(string username)
+    {
+        return Relacionamentos.Count(r =>
+            r.SeguidoUsername.Equals(
+                username,
+                StringComparison.OrdinalIgnoreCase));
+    }
+
+    // Quantidade de contas que uma conta segue.
+    public static int ObterQuantidadeSeguindo(string username)
+    {
+        return Relacionamentos.Count(r =>
+            r.SeguidorUsername.Equals(
+                username,
+                StringComparison.OrdinalIgnoreCase));
+    }
+
+    // Atualiza os contadores de todos os usuários.
+    private static void AtualizarContadoresRelacionamentos()
+    {
+        foreach (var usuario in Usuarios)
+        {
+            usuario.Seguidores =
+                ObterQuantidadeSeguidores(usuario.Username);
+
+            usuario.Seguindo =
+                ObterQuantidadeSeguindo(usuario.Username);
+        }
+    }
+
+
     // ==========================================
     // USUÁRIOS SIMULADOS
     // ==========================================
@@ -277,8 +420,8 @@ public class MockUserService : IAuthService
 
             Endereco = "Rua das Flores, 120, Jardim Sao Paulo, Sao Paulo, SP",
 
-            Seguidores = 12,
-            Seguindo = 8,
+            Seguidores = 5,
+            Seguindo = 10,
             QuilosReciclados = 35,
             SaldoPontos = 1000,
 
